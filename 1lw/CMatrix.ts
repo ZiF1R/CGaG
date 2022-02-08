@@ -1,4 +1,4 @@
-class CMatrix {
+export class CMatrix {
   public rows: number;
   public columns: number;
   public matrix: number[][];
@@ -20,5 +20,24 @@ class CMatrix {
 
   getColumnsCount(): number {
     return this.columns;
+  }
+
+  getRow(rowNumber: number): number[] | null {
+    if (rowNumber > this.rows || rowNumber < 0)
+      return null;
+    return this.matrix[rowNumber];
+  }
+
+  getColumn(columnNumber: number): number[] | null {
+    if (columnNumber > this.columns || columnNumber < 0)
+      return null;
+    let resultColumn: Array<number> = [];
+
+    for (let row = 0; row < this.matrix.length; row++)
+      for (let column = 0; column < this.matrix[row].length; column++)
+        if (column === columnNumber)
+          resultColumn.push(this.matrix[row][column]);
+
+    return resultColumn;
   }
 }
