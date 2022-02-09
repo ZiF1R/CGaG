@@ -68,4 +68,16 @@ export class CMatrix {
 
     return resultColumn;
   }
+
+  /** 
+   * @returns transposed matrix
+   */ 
+  transposed(): number[][] {
+    let transparentMatrix = JSON.parse(JSON.stringify(this.matrix));
+    for (let i = 0; i < this.rows; i++)
+      for (let j = 0; j < this.columns; j++)
+        transparentMatrix[i][j] = this.matrix[j][i];
+    
+    return transparentMatrix;
+  }
 }
