@@ -106,3 +106,5 @@ export class CMatrix {
    */
   declare Max: () => number;
 }
+
+import "./CMatrix-components/CMatrix-methods";
