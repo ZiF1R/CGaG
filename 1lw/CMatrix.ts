@@ -105,6 +105,11 @@ export class CMatrix {
    * @returns maximal element of matrix
    */
   declare Max: () => number;
+
+  declare Add: (parameter: CMatrix | number) => number[][];
+  declare Subtract: (parameter: CMatrix | number) => number[][];
+  declare Multiply: (parameter: CMatrix | number) => number[][];
 }
 
 import "./CMatrix-components/CMatrix-methods";
+import "./CMatrix-components/CMatrix-operators";
