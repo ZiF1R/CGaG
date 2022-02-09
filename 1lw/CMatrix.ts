@@ -1,6 +1,6 @@
 export class CMatrix {
-  readonly rows: number;
-  readonly columns: number;
+  private rows: number;
+  private columns: number;
   private matrix: number[][];
 
   public constructor(rows: number, columns: number); // Default constructor, fill matrix with zeros
@@ -20,8 +20,8 @@ export class CMatrix {
     }
     else {
       let [ otherMatrix ] = args;
-      this.rows = otherMatrix.getRowsCount();
-      this.columns = otherMatrix.getColumnsCount();
+      this.rows = otherMatrix.Rows;
+      this.columns = otherMatrix.Columns;
       this.matrix = otherMatrix.matrix;
     }
   }
@@ -34,7 +34,7 @@ export class CMatrix {
     // check if the columns of assigned matrix have one size
     let isEqualColumnsSize =
       matrix.filter(arr => arr.length !== this.columns).length === 0;
-    
+
     // if size of columns or rows doesn't match, throw error
     if (matrix.length !== this.rows || !isEqualColumnsSize) {
       throw new TypeError("Assigned matrix size doesn't match to aggregated matrix!");
@@ -42,11 +42,11 @@ export class CMatrix {
     else this.matrix = matrix;
   }
 
-  getRowsCount(): number {
+  get Rows(): number {
     return this.rows;
   }
 
-  getColumnsCount(): number {
+  get Columns(): number {
     return this.columns;
   }
 
@@ -69,15 +69,40 @@ export class CMatrix {
     return resultColumn;
   }
 
-  /** 
-   * @returns transposed matrix
-   */ 
-  transposed(): number[][] {
-    let transparentMatrix = JSON.parse(JSON.stringify(this.matrix));
-    for (let i = 0; i < this.rows; i++)
-      for (let j = 0; j < this.columns; j++)
-        transparentMatrix[i][j] = this.matrix[j][i];
-    
-    return transparentMatrix;
+  /**
+   * @returns matrix with new sizes
+   */
+  changeSize(newRows: number, newColumns: number): number[][] {
+    if (newRows < 0 || newColumns < 0)
+      throw new RangeError("Size of matrix must be not negative number!");
+
+    let newMatrix = Array(newRows).fill(0).map(
+        () => Array(newColumns).fill(0)
+    );
+
+    for (let row = 0; row < newRows; row++)
+      for (let column = 0; column < newColumns; column++)
+        if (row < this.rows && column < this.columns)
+          newMatrix[row][column] = this.matrix[row][column];
+
+    this.rows = newRows;
+    this.columns = newColumns;
+
+    return this.matrix = newMatrix
   }
+
+  /**
+   * @returns transposed matrix
+   */
+  declare transposed: () => number[][];
+
+  /**
+   * @returns minimal element of matrix
+   */
+  declare Min: () => number;
+
+  /**
+   * @returns maximal element of matrix
+   */
+  declare Max: () => number;
 }
