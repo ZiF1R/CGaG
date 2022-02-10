@@ -15,7 +15,7 @@ export class CMatrix {
       this.rows = rows;
       this.columns = columns;
       this.matrix = Array(this.rows).fill(0).map(
-          () => Array(this.columns).fill(0)
+        () => Array(this.columns).fill(0)
       );
     }
     else {
@@ -37,7 +37,7 @@ export class CMatrix {
 
     // if size of columns or rows doesn't match, throw error
     if (matrix.length !== this.rows || !isEqualColumnsSize) {
-      throw new TypeError("Assigned matrix size doesn't match to aggregated matrix!");
+      throw new Error("Assigned matrix size doesn't match to aggregated matrix!");
     }
     else this.matrix = matrix;
   }

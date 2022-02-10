@@ -60,9 +60,9 @@ describe("Test additional operations", (): void => {
   });
   test("SphereToDecart", () => {
     expect(SphereToDecart(V1).Matrix).toStrictEqual([
-      [0.28],
-      [-0.04],
-      [0.96]
+      [0.2766192466508119],
+      [-0.03943111735788423],
+      [0.9601702866503661]
     ]);
   });
 });
