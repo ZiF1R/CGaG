@@ -1,4 +1,24 @@
+import { CMatrix } from "./types/CMatrix";
 import { CVector } from "./types/CVector";
+
+export const PrintMatrix = (matrix: CMatrix): void => {
+  let result = "[\n  ";
+  for (let i = 0; i < matrix.Rows; i++) {
+    result += "[";
+    for (let j = 0; j < matrix.Columns; j++) {
+      if (j + 1 === matrix.Columns)
+        result += matrix.Matrix[i][j];
+      else
+        result += matrix.Matrix[i][j] + ', ';
+    }
+    if (i + 1 === matrix.Rows)
+      result += "]\n";
+    else
+      result += "],\n  ";
+  }
+  result += "]";
+  console.log(result);
+};
 
 export const VectorMult = (v1: CVector, v2: CVector): CVector => {
   if (v1.Rows !== v2.Rows)
