@@ -1,6 +1,5 @@
 import { CMatrix } from "./types/CMatrix";
 import { CVector } from "./types/CVector";
-import { VectorMult } from "./AdditionalOperations";
 
 export let A = new CMatrix(3, 3);
 export let B = new CMatrix(A);
@@ -30,4 +29,3 @@ V2.Matrix = [
   [1],
   [6],
 ];
-console.log(VectorMult(V1, V2));

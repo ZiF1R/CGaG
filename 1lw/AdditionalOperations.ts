@@ -7,8 +7,8 @@ export const VectorMult = (v1: CVector, v2: CVector): CVector => {
   let result: CVector = new CVector(v1.Rows);
   result.Matrix = [
     [v1.Matrix[1][0]*v2.Matrix[2][0] - v2.Matrix[1][0]*v1.Matrix[2][0]],
-    [v1.Matrix[0][0]*v2.Matrix[2][0] - v2.Matrix[0][0]*v1.Matrix[2][0]],
-    [v1.Matrix[0][0]*v2.Matrix[1][0] - v2.Matrix[1][0]*v1.Matrix[0][0]],
+    [-(v1.Matrix[0][0]*v2.Matrix[2][0] - v2.Matrix[0][0]*v1.Matrix[2][0])],
+    [v1.Matrix[0][0]*v2.Matrix[1][0] - v2.Matrix[0][0]*v1.Matrix[1][0]],
   ];
 
   return result;
