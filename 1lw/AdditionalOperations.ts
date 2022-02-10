@@ -43,9 +43,9 @@ export const CosBetweenVectors = (v1: CVector, v2: CVector): number => {
 export const SphereToDecart = (point: CVector): CVector => {
   let result: CVector = new CVector(3);
   result.Matrix = [
-    [point[0][0] * Math.cos(point[1][0]) * Math.sin(point[2][0])],
-    [point[0][0] * Math.sin(point[1][0]) * Math.sin(point[2][0])],
-    [point[0][0] * Math.cos(point[2][0])],
+    [point.Matrix[0][0] * Math.cos(point.Matrix[1][0]) * Math.sin(point.Matrix[2][0])],
+    [point.Matrix[0][0] * Math.sin(point.Matrix[1][0]) * Math.sin(point.Matrix[2][0])],
+    [point.Matrix[0][0] * Math.cos(point.Matrix[2][0])],
   ];
 
   return result;
