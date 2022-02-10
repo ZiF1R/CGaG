@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.selection-area {
+  position: absolute;
+  background: #add8e659;
+  border: 1px dotted #2980b9;
+}
+
+.selection-area__actions {
+  position: absolute;
+  top: -40px;
+  left: 100%;
+  transform: translateX(-100%);
+}
+
+.selection-area__save {
+  border-radius: 5px;
+  padding: 8px 18px;
+  outline: none;
+  border: none;
+  background: #3030307a;
+  color: #ddd;
+  cursor: pointer;
+
+  transition: all .21s ease;
+}
+
+.selection-area__save:hover {
+  background: #4141417a;
+}
+
+.selection-area__save:active {
+  background: #1f1f1f7a;
+}
+
+#partialCanvas {
+  position: absolute;
+  opacity: 0;
+}
