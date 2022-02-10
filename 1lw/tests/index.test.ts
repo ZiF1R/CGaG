@@ -16,7 +16,7 @@ describe("Operations with CMatrix", (): void => {
     ]);
   });
   test("Addition of CMatrix and CVector", (): void => {
-    expect(A.Add(V1).Matrix).toStrictEqual([
+    expect(A.Multiply(V1).Matrix).toStrictEqual([
       [ 25 ],
       [ 55 ],
       [ 85 ]
