@@ -1,20 +1,20 @@
 import { CMatrix } from "../CMatrix";
 
-CMatrix.prototype.Add = function(parameter: CMatrix | number): number[][] {
+CMatrix.prototype.Add = function(parameter: CMatrix | number): CMatrix {
   return ApplyMatrixOperation(parameter)(this, "+");
 }
 
-CMatrix.prototype.Subtract = function(parameter: CMatrix | number): number[][] {
+CMatrix.prototype.Subtract = function(parameter: CMatrix | number): CMatrix {
   return ApplyMatrixOperation(parameter)(this, "-");
 }
 
-CMatrix.prototype.Multiply = function(parameter: CMatrix | number): number[][] {
+CMatrix.prototype.Multiply = function(parameter: CMatrix | number): CMatrix {
   return ApplyMatrixOperation(parameter)(this, "*");
 }
 
 type Operation = "+" | "-" | "*" | "/";
 
-function ApplyMatrixOperation(arg: CMatrix | number): (matrix: CMatrix, operation: Operation) => number[][] {
+function ApplyMatrixOperation(arg: CMatrix | number): (matrix: CMatrix, operation: Operation) => CMatrix {
   if (typeof arg === 'number') {
     return (matrix: CMatrix, operation: Operation) => {
       return operationsForNumber(matrix, arg, operation);
@@ -27,8 +27,8 @@ function ApplyMatrixOperation(arg: CMatrix | number): (matrix: CMatrix, operatio
   }
 }
 
-function operationsForMatrix(matrix: CMatrix, otherMatrix: CMatrix, operation: Operation): number[][] {
-  let result = JSON.parse(JSON.stringify(matrix.Matrix));
+function operationsForMatrix(matrix: CMatrix, otherMatrix: CMatrix, operation: Operation): CMatrix {
+  let result = new CMatrix(matrix.Rows, otherMatrix.Columns);
   if (matrix.Columns !== otherMatrix.Rows)
     throw TypeError("Columns count of CMatrix parameter must be equal to rows count of matrix!");
 
@@ -36,13 +36,13 @@ function operationsForMatrix(matrix: CMatrix, otherMatrix: CMatrix, operation: O
     for (let column = 0; column < otherMatrix.Columns; column++) {
       switch(operation) {
         case "+":
-          result[row][column] = matrix.Matrix[row][column] + otherMatrix.Matrix[row][column]; break;
+          result.Matrix[row][column] = matrix.Matrix[row][column] + otherMatrix.Matrix[row][column]; break;
         case "-":
-          result[row][column] = matrix.Matrix[row][column] - otherMatrix.Matrix[row][column]; break;
+          result.Matrix[row][column] = matrix.Matrix[row][column] - otherMatrix.Matrix[row][column]; break;
         case "*": {
-          result[row][column] = 0;
+          result.Matrix[row][column] = 0;
           for (let columnB = 0; columnB < matrix.Columns; columnB++)
-            result[row][column] += matrix.Matrix[row][columnB] * otherMatrix.Matrix[columnB][column];
+            result.Matrix[row][column] += matrix.Matrix[row][columnB] * otherMatrix.Matrix[columnB][column];
           break;
         }
       }
@@ -51,10 +51,10 @@ function operationsForMatrix(matrix: CMatrix, otherMatrix: CMatrix, operation: O
   return result;
 }
 
-function operationsForNumber(matrix: CMatrix, number: number, operation: Operation): number[][] {
-  let result = JSON.parse(JSON.stringify(matrix.Matrix));
+function operationsForNumber(matrix: CMatrix, number: number, operation: Operation): CMatrix {
+  let result = new CMatrix(matrix.Rows, matrix.Columns);
 
-  return result.map((arr: number[]) =>
+  result.Matrix.map((arr: number[]) =>
     arr.map((num: number) => {
       switch(operation) {
         case "+": num += number; break;
@@ -65,4 +65,6 @@ function operationsForNumber(matrix: CMatrix, number: number, operation: Operati
       return num;
     }
   ));
+
+  return result;
 }

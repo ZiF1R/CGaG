@@ -94,7 +94,7 @@ export class CMatrix {
   /**
    * @returns transposed matrix
    */
-  declare transpose: () => number[][];
+  declare transpose: () => CMatrix;
 
   /**
    * @returns minimal element of matrix
@@ -106,9 +106,9 @@ export class CMatrix {
    */
   declare Max: () => number;
 
-  declare Add: (parameter: CMatrix | number) => number[][];
-  declare Subtract: (parameter: CMatrix | number) => number[][];
-  declare Multiply: (parameter: CMatrix | number) => number[][];
+  declare Add: (parameter: CMatrix | number) => CMatrix;
+  declare Subtract: (parameter: CMatrix | number) => CMatrix;
+  declare Multiply: (parameter: CMatrix | number) => CMatrix;
 }
 
 import "./CMatrix-components/CMatrix-methods";

@@ -5,8 +5,8 @@ export class CVector extends CMatrix {
     super(rows, 1);
   }
 
-  declare Add: (parameter: number | CVector) => number[][];
-  declare Subtract: (parameter: number | CMatrix) => number[][];
+  declare Add: (parameter: number | CVector) => CMatrix;
+  declare Subtract: (parameter: number | CMatrix) => CMatrix;
 }
 
 import "./CVector-components/CVector-operators";
