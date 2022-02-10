@@ -12,11 +12,11 @@ CMatrix.prototype.Max = function(): number {
   return Math.max(...maxOfRows);
 }
 
-CMatrix.prototype.transposed = function(): number[][] {
-  let transparentMatrix = JSON.parse(JSON.stringify(this.Matrix));
+CMatrix.prototype.transpose = function(): number[][] {
+  let transparentMatrix = Array(this.Columns).fill(0).map(arr => Array(this.Rows).fill(0));
   for (let i = 0; i < this.Rows; i++)
     for (let j = 0; j < this.Columns; j++)
-      transparentMatrix[i][j] = this.Matrix[j][i];
+      transparentMatrix[j][i] = this.Matrix[i][j];
 
   return transparentMatrix;
 }

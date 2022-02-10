@@ -94,7 +94,7 @@ export class CMatrix {
   /**
    * @returns transposed matrix
    */
-  declare transposed: () => number[][];
+  declare transpose: () => number[][];
 
   /**
    * @returns minimal element of matrix
