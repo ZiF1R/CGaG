@@ -4,11 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script defer type="module" src="./index.js"></script>
+
     <title>Document</title>
   </head>
   <body>
-    
-    <canvas id="canvas" width="500" height="500" ></canvas>
+
+    <div class="container" style="display: flex;">
+      <div>
+        <h1>World coordinate system</h1>
+        <canvas id="world-coordinate-system" width="400" height="400"></canvas>
+      </div>
+
+      <div>
+        <h1>Window coordinate system</h1>
+        <canvas id="window-coordinate-system" width="400" height="400"></canvas>
+      </div>
+    </div>
 
   </body>
 </html>
