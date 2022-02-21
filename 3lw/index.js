@@ -16,7 +16,6 @@ let points = [ A, B, C, D, E, F, G ];
 const TopLeftCorner = [100, 200],
   BottomRightCorner = [400, 500];
 
-
 let Zx = new CVector(points.length),
   Zy = new CVector(points.length);
 
@@ -32,20 +31,10 @@ let X_min = Zx.Min(),
   Y_min = Zy.Min(),
   Y_max = Zy.Max();
 
-let dXw = BottomRightCorner[0] - TopLeftCorner[0],
-  dYw = BottomRightCorner[1] - TopLeftCorner[1],
-  dX = X_max - X_min,
-  dY = Y_max - Y_min;
-
-let Kx = dXw / dX,
-  Ky = dYw / dY;
-
-let Tsw = new CMatrix(3, 3);
-Tsw.Matrix = [
-  [Kx, 0, TopLeftCorner[0] - Kx * X_min],
-  [0, -Ky, BottomRightCorner[1] + Ky * Y_min],
-  [0, 0, 1],
-];
+let Tsw = convertToWindowCoordinates(
+  [[X_min, Y_min], [X_max, Y_max]],
+  [TopLeftCorner, BottomRightCorner]
+);
 
 let A_vector = getPointVector(A),
   B_vector = getPointVector(B),
@@ -67,6 +56,27 @@ function getPointVector(point) {
   return result.Matrix[0];
 }
 
+function convertToWindowCoordinates(areaInWorldCoordinates, areaInWindowCoordinates) {
+  let [x_min, y_min] = areaInWorldCoordinates[0];
+  let [x_max, y_max] = areaInWorldCoordinates[1];
+
+  let dXw = areaInWindowCoordinates[1][0] - areaInWindowCoordinates[0][0],
+    dYw = areaInWindowCoordinates[1][1] - areaInWindowCoordinates[0][1],
+    dX = x_max - x_min,
+    dY = y_max - y_min;
+
+  let Kx = dXw / dX,
+    Ky = dYw / dY;
+
+  let Tsw = new CMatrix(3, 3);
+  Tsw.Matrix = [
+    [Kx, 0, TopLeftCorner[0] - Kx * x_min],
+    [0, -Ky, BottomRightCorner[1] + Ky * y_min],
+    [0, 0, 1],
+  ];
+
+  return Tsw;
+}
 
 // draw figures
 
