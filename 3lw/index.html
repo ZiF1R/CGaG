@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script defer type="module" src="./index.js"></script>
+    <script defer type="module" src="./chart.js"></script>
+
     <style>
       body {
         font-family: "Raleway";
         font-size: 16px;
       }
 
-      h1 {
+      h2 {
         font-weight: 500;
         font-size: 1.6em;
       }
@@ -21,8 +23,23 @@
         border: 1px solid #ccc;
       }
 
-      #world-coordinate-system {
+      h1 {
+        margin: 40px 0 0;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .container > div:first-child {
         margin-right: 50px;
+      }
+
+      .charts {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
     </style>
 
@@ -30,15 +47,28 @@
   </head>
   <body>
 
-    <div class="container" style="display: flex;">
+    <div class="container">
       <div>
-        <h1>World coordinate system</h1>
+        <h2>World coordinate system</h2>
         <canvas id="world-coordinate-system" width="600" height="600"></canvas>
       </div>
 
       <div>
-        <h1>Window coordinate system</h1>
+        <h2>Window coordinate system</h2>
         <canvas id="window-coordinate-system" width="600" height="600"></canvas>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="charts">
+        <h2>Charts</h2>
+        <div>
+          <button class="f1">sin(x) / x</button>
+          <button class="f2">x³</button>
+          <button class="f3">√x sin(x)</button>
+          <button class="f4">x²</button>
+        </div>
+        <canvas id="chart" width="600" height="600"></canvas>
       </div>
     </div>
 
