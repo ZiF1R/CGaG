@@ -62,9 +62,9 @@ function getPointVector(point) {
     [point[1]],
     [1]
   ];
-  result = Tsw.Multiply(result);
+  result = Tsw.Multiply(result).transpose();
 
-  return result.Matrix;
+  return result.Matrix[0];
 }
 
 
@@ -83,7 +83,7 @@ let figurePoints = [
   E_vector,
   G_vector,
   D_vector,
-]
+];
 const xPadding = 50,
   yPadding = 40;
 
@@ -92,37 +92,120 @@ const graphLeft = xPadding,
   graphTop = yPadding,
   graphBottom = canvas.height - yPadding;
 
+
+///
+/// draw figure in window coordinate system
+///
+
 let minMax = getMinMaxCoordinates(figurePoints);
 ctx.font = '16px Raleway';
 ctx.textAlign = 'right';
 ctx.textBaseline = 'middle';
 
 // x axis markers
-ctx.fillText(0, graphLeft, graphBottom + 10);
-ctx.fillText(minMax.x.min, minMax.x.min + graphLeft, graphBottom + 10);
-ctx.fillText(minMax.x.max, minMax.x.max + graphLeft, graphBottom + 10);
+ctx.fillText(0, graphLeft, graphTop - 15);
+ctx.fillText(minMax.x.min, minMax.x.min + graphLeft, graphTop - 15);
+ctx.fillText(minMax.x.max, minMax.x.max + graphLeft, graphTop - 15);
 
 // y axis markers
 ctx.fillText(0, graphLeft - 10, graphTop);
 ctx.fillText(minMax.y.max, graphLeft - 10, minMax.y.max + graphTop);
 ctx.fillText(minMax.y.min, graphLeft - 10, minMax.y.min + graphTop);
 
-drawFigure(figurePoints);
-
 // draw axis
-ctx.moveTo(graphLeft, graphTop);
-ctx.lineTo(graphLeft, graphRigh);
-ctx.lineTo(graphBottom, graphRigh);
+ctx.moveTo(graphRigh, graphTop);
+ctx.lineTo(graphLeft, graphTop);
+ctx.lineTo(graphLeft, graphBottom);
 
 ctx.lineWidth = '2';
 ctx.lineCap = 'round';
 ctx.lineJoin = 'round';
 ctx.stroke();
 
+// draw figure
+ctx.beginPath();
+
+drawFigure(figurePoints);
+
+ctx.strokeStyle = "tomato";
+ctx.closePath();
+
+ctx.stroke();
+
+
+///
+/// draw figure in world coordinate system
+///
+
+canvas = document.getElementById("world-coordinate-system");
+ctx = canvas.getContext("2d");
+ctx.font = '16px Raleway';
+ctx.textAlign = 'right';
+ctx.textBaseline = 'middle';
+
+minMax = getMinMaxCoordinates(points);
+
+const center = {
+  x: canvas.width / 2.0,
+  y: canvas.height / 2.0,
+};
+
+// Coefficient for scaling the chart,
+// because the coordinates of figure
+// in world coordinate system is very small,
+// so we increase it
+const coefficient = 45;
+
+// get x and y coordinate in world coordinate system chart
+const getXInWCS = (x) => center.x + x * coefficient;
+const getYInWCS = (y) => center.y - y * coefficient;
+
+// x axis markers
+ctx.fillText(0, center.x - 10, center.y + 15);
+ctx.fillText(minMax.x.min, getXInWCS(minMax.x.min), center.y + 15);
+ctx.fillText(minMax.x.max, getXInWCS(minMax.x.max), center.y + 15);
+
+// y axis markers
+ctx.fillText(minMax.y.max, center.x - 10, getYInWCS(minMax.y.max));
+ctx.fillText(minMax.y.min, center.x - 10, getYInWCS(minMax.y.min));
+
+// draw axis
+ctx.moveTo(center.x, graphTop);
+ctx.lineTo(center.x, graphBottom);
+ctx.moveTo(graphLeft, center.y);
+ctx.lineTo(graphRigh, center.y);
+
+
+ctx.lineWidth = '2';
+ctx.lineCap = 'round';
+ctx.lineJoin = 'round';
+ctx.stroke();
+
+figurePoints = [ B, C, D, B, F, A, E, G, D ];
+
+ctx.beginPath();
+// draw figure in world coordinate system
+for (let i = 0; i < figurePoints.length - 1; i++) {
+  ctx.moveTo(getXInWCS(figurePoints[i][0]), getYInWCS(figurePoints[i][1]));
+  ctx.lineTo(getXInWCS(figurePoints[i + 1][0]), getYInWCS(figurePoints[i + 1][1]));
+}
+ctx.strokeStyle = "tomato";
+ctx.closePath();
+
+ctx.stroke();
+
+
+///
+/// functions-helpers
+///
+
+/**
+ * @param {Array} points
+ */
 function drawFigure(points) {
   for (let i = 0; i < points.length - 1; i++) {
-    ctx.moveTo(points[i][0][0] + graphLeft, points[i][1][0] + graphTop);
-    ctx.lineTo(points[i + 1][0][0] + graphLeft, points[i + 1][1][0] + graphTop);
+    ctx.moveTo(points[i][0] + graphLeft, points[i][1] + graphTop);
+    ctx.lineTo(points[i + 1][0] + graphLeft, points[i + 1][1] + graphTop);
   }
 }
 
@@ -145,15 +228,15 @@ function getMinMaxCoordinates(coordinates) {
   for (let i = 0; i < coordinates.length; i++) {
     // find min and max of x coordinate
     if (coordinates[i][0] > result.x.max)
-      result.x.max = coordinates[i][0][0];
+      result.x.max = coordinates[i][0];
     if (coordinates[i][0] < result.x.min)
-      result.x.min = coordinates[i][0][0];
+      result.x.min = coordinates[i][0];
 
     // find min and max of y coordinate
     if (coordinates[i][1] > result.y.max)
-      result.y.max = coordinates[i][1][0];
+      result.y.max = coordinates[i][1];
     if (coordinates[i][1] < result.y.min)
-      result.y.min = coordinates[i][1][0];
+      result.y.min = coordinates[i][1];
   }
 
   return result;
