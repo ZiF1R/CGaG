@@ -57,8 +57,104 @@ let A_vector = getPointVector(A),
 
 function getPointVector(point) {
   let result = new CVector(3);
-  result.Matrix = [[point[0]], [point[1]], [1]];
+  result.Matrix = [
+    [point[0]],
+    [point[1]],
+    [1]
+  ];
   result = Tsw.Multiply(result);
 
   return result.Matrix;
+}
+
+
+// draw figures
+
+let canvas = document.getElementById("window-coordinate-system");
+let ctx = canvas.getContext("2d");
+
+let figurePoints = [
+  B_vector,
+  C_vector,
+  D_vector,
+  B_vector,
+  F_vector,
+  A_vector,
+  E_vector,
+  G_vector,
+  D_vector,
+]
+const xPadding = 50,
+  yPadding = 40;
+
+const graphLeft = xPadding,
+  graphRigh = canvas.width - xPadding,
+  graphTop = yPadding,
+  graphBottom = canvas.height - yPadding;
+
+let minMax = getMinMaxCoordinates(figurePoints);
+ctx.font = '16px Raleway';
+ctx.textAlign = 'right';
+ctx.textBaseline = 'middle';
+
+// x axis markers
+ctx.fillText(0, graphLeft, graphBottom + 10);
+ctx.fillText(minMax.x.min, minMax.x.min + graphLeft, graphBottom + 10);
+ctx.fillText(minMax.x.max, minMax.x.max + graphLeft, graphBottom + 10);
+
+// y axis markers
+ctx.fillText(0, graphLeft - 10, graphTop);
+ctx.fillText(minMax.y.max, graphLeft - 10, minMax.y.max + graphTop);
+ctx.fillText(minMax.y.min, graphLeft - 10, minMax.y.min + graphTop);
+
+drawFigure(figurePoints);
+
+// draw axis
+ctx.moveTo(graphLeft, graphTop);
+ctx.lineTo(graphLeft, graphRigh);
+ctx.lineTo(graphBottom, graphRigh);
+
+ctx.lineWidth = '2';
+ctx.lineCap = 'round';
+ctx.lineJoin = 'round';
+ctx.stroke();
+
+function drawFigure(points) {
+  for (let i = 0; i < points.length - 1; i++) {
+    ctx.moveTo(points[i][0][0] + graphLeft, points[i][1][0] + graphTop);
+    ctx.lineTo(points[i + 1][0][0] + graphLeft, points[i + 1][1][0] + graphTop);
+  }
+}
+
+/**
+ * @param {Array} coordinates
+ * @returns {Object}
+ */
+function getMinMaxCoordinates(coordinates) {
+  let result = {
+    x: {
+      max: -99999,
+      min: 99999,
+    },
+    y: {
+      max: -99999,
+      min: 99999,
+    },
+  };
+
+  for (let i = 0; i < coordinates.length; i++) {
+    // find min and max of x coordinate
+    if (coordinates[i][0] > result.x.max)
+      result.x.max = coordinates[i][0][0];
+    if (coordinates[i][0] < result.x.min)
+      result.x.min = coordinates[i][0][0];
+
+    // find min and max of y coordinate
+    if (coordinates[i][1] > result.y.max)
+      result.y.max = coordinates[i][1][0];
+    if (coordinates[i][1] < result.y.min)
+      result.y.min = coordinates[i][1][0];
+  }
+
+  return result;
 }
