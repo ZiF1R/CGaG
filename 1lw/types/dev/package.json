@@ -1,0 +1,12 @@
+{
+  "name": "cmatrix-cvector",
+  "version": "1.0.0",
+  "description": "CMatrix and CVector classes",
+  "main": "CMatrix.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ZiF1R",
+  "license": "MIT"
+}
