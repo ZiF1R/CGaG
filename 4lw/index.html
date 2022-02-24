@@ -7,9 +7,20 @@
 
     <script defer type="module" src="./index.js"></script>
     <style>
-      .planet {
-        position: relative;
+      * {
+        box-sizing: border-box;
+      }
+
+      .planet,
+      .orbit {
+        position: absolute;
         border-radius: 50%;
+      }
+
+      .orbit {
+        border: 2px solid;
+        background: none;
+        z-index: -1;
       }
 
       #sun {
@@ -21,11 +32,15 @@
       }
 
       #moon {
-        background: lightgoldenrodyellow;
+        background: rgb(241, 241, 175);
       }
 
       #mars {
         background: tomato;
+      }
+
+      #new {
+        background: blueviolet;
       }
     </style>
 
@@ -36,6 +51,7 @@
     <div id="sun" class="planet"></div>
     <div id="earth" class="planet"></div>
     <div id="moon" class="planet"></div>
+    <div id="new" class="planet"></div>
     <div id="mars" class="planet"></div>
     
   </body>
