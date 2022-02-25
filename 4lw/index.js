@@ -58,7 +58,7 @@ class CSunSystem {
     this.Earth = {
       type: "planet",
       element: document.getElementById("earth"),
-      radius: 30,
+      radius: 20,
       orbitRadius: 7 * this.Sun.radius,
       speed: 1,
       angle: 0,
@@ -69,8 +69,8 @@ class CSunSystem {
       element: document.getElementById("mars"),
       radius: 25,
       orbitRadius: 4 * this.Sun.radius,
-      speed: -3,
-      angle: 1,
+      speed: -2,
+      angle: 0,
       coordinates: new CMatrix(3, 1),
     };
     this.Moon = {
@@ -93,9 +93,19 @@ class CSunSystem {
       angle: 0,
       coordinates: new CMatrix(3, 1),
     };
+    this.St = {
+      type: "satellite",
+      targetPlanet: this.Mars,
+      element: document.getElementById("st"),
+      radius: 10,
+      orbitRadius: 1.5 * this.Mars.radius,
+      speed: 3,
+      angle: 0,
+      coordinates: new CMatrix(3, 1),
+    };
 
     this.discretizationInterval = 0.3; //ms
-    this.planets = [this.Earth, this.Moon, this.New, this.Mars];
+    this.planets = [this.Earth, this.Moon, this.New, this.Mars, this.St];
 
     // draw sun
     this.Sun.element.style.width = this.Sun.radius + 'px';
