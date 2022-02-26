@@ -208,16 +208,27 @@ viewPoint.Matrix = [
 ];
 pyramid.SetDrawMode(pyramid.DrawWithoutInvisibleLines, viewPoint);
 
+let newViewPoint = new CVector(3);
+function rotatePyramid(e) {
+  let x = viewPoint.Matrix[1][0] + (clickCoordinates.x - e.clientX);
+  let y = viewPoint.Matrix[2][0] + (clickCoordinates.y - e.clientY);
+
+  x %= 360;
+  y %= 360;
+
+  newViewPoint.Matrix = [[10], [x], [y]];
+  pyramid.CurrentDrawModeFunction(newViewPoint);
+}
+
 let clickCoordinates = {};
 canvas.addEventListener("mousedown", (e) => {
-  console.log("mousedown " + viewPoint.Matrix)
   clickCoordinates = { x: e.clientX, y: e.clientY};
 
   canvas.addEventListener("mousemove", rotatePyramid);
   canvas.addEventListener("mouseup", mouseUp);
 
   function mouseUp() {
-    console.log("mouseup " + viewPoint.Matrix)
+    viewPoint.Matrix = newViewPoint.Matrix;
     canvas.removeEventListener("mousemove", rotatePyramid);
     canvas.removeEventListener("mouseup", mouseUp);
   }
@@ -232,18 +243,6 @@ drawModeCheckbox.addEventListener("change", (e) => {
 
   pyramid.CurrentDrawModeFunction(viewPoint);
 });
-
-function rotatePyramid(e) {
-  console.log("mousemove " + viewPoint.Matrix)
-  let x = viewPoint.Matrix[0][0] + clickCoordinates.x - e.clientX;
-  let y = viewPoint.Matrix[1][0] + clickCoordinates.y - e.clientY;
-
-  x %= 360;
-  y %= 360;
-
-  viewPoint.Matrix = [[10], [x], [y]];
-  pyramid.CurrentDrawModeFunction(viewPoint);
-}
 
 /**
  * @param {number} r
