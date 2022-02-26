@@ -1,5 +1,6 @@
 import { CVector } from "./CVector.js";
 import { CMatrix } from "./CMatrix.js";
+
 export const PrintMatrix = (matrix) => {
     let result = "[\n  ";
     for (let i = 0; i < matrix.Rows; i++) {
@@ -18,6 +19,7 @@ export const PrintMatrix = (matrix) => {
     result += "]";
     console.log(result);
 };
+
 export const VectorMult = (v1, v2) => {
     if (v1.Rows !== v2.Rows)
         throw new Error("The sizes of vectors must be equal!");
@@ -29,6 +31,7 @@ export const VectorMult = (v1, v2) => {
     ];
     return result;
 };
+
 export const ScalarMult = (v1, v2) => {
     if (v1.Rows !== v2.Rows)
         throw new Error("The sizes of vectors must be equal!");
@@ -38,6 +41,7 @@ export const ScalarMult = (v1, v2) => {
             result += v1.Matrix[row][column] * v2.Matrix[row][column];
     return result;
 };
+
 export const ModOfVector = (v) => {
     let result = 0;
     for (let row = 0; row < v.Rows; row++)
@@ -45,9 +49,11 @@ export const ModOfVector = (v) => {
             result += Math.pow(v.Matrix[row][column], 2);
     return Math.sqrt(result);
 };
+
 export const CosBetweenVectors = (v1, v2) => {
     return ScalarMult(v1, v2) / (ModOfVector(v1) * ModOfVector(v2));
 };
+
 /**
  * @param {CMatrix} viewPoint
  * @returns {CMatrix} (r, azimuth, angle) coordinates in decart coordinate system
@@ -69,6 +75,7 @@ export function SphereToDecart(viewPoint) {
 
   return viewPointInDecart;
 }
+
 /**
  * @param {Array<Array<number>>} areaInWorldCoordinates two dimentional array, contains coordinates of top left and bottom right corners
  * @param {Array<Array<number>>} areaInWindowCoordinates two dimentional array, contains coordinates of top left and bottom right corners
@@ -94,6 +101,7 @@ export function SpaceToWindow(areaInWorldCoordinates, areaInWindowCoordinates) {
 
   return Tsw;
 }
+
 /**
  * @param {number} r
  * @param {number} azimuth - from X axis
@@ -116,6 +124,7 @@ export function CreateViewCoord(r, azimuth, angle) {
 
   return VM;
 }
+
 export function CreateTranslate2D(dx, dy) {
   let TM = new CMatrix(3, 3);
   TM.Matrix = [
@@ -126,6 +135,7 @@ export function CreateTranslate2D(dx, dy) {
 
   return TM;
 }
+
 export function CreateRotate2D(angle) {
   let fg = angle % 360.0;
   let angleInRadians = (fg / 180.0) * Math.PI;
@@ -138,4 +148,89 @@ export function CreateRotate2D(angle) {
   ];
 
   return RM;
+}
+
+/**
+ * @param {number} dx
+ * @param {number} dy
+ * @param {number} dz
+ * @returns {CMatrix}
+ */
+export function CreateTranslate3D(dx, dy, dz) {
+  let TM = new CMatrix (4, 4);
+  TM.Matrix = [
+    [1, 1, 1, dx],
+    [1, 1, 1, dy],
+    [1, 1, 1, dz],
+    [1, 1, 1, 1],
+  ];
+
+  return TM;
+}
+
+/**
+ * @param {number} angle
+ * @returns {CMatrix}
+ */
+export function CreateRotate3DZ(angle) {
+  let fg = angle % 360.0;
+  let angleInRadians = (fg / 180.0) * Math.PI;
+
+  let RM = new CMatrix (4, 4);
+  RM.Matrix = [
+    [Math.cos(angleInRadians), -Math.sin(angleInRadians), 0, 0],
+    [Math.sin(angleInRadians), Math.cos(angleInRadians), 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 1],
+  ];
+
+  return TM;
+}
+
+/**
+ * @param {number} angle
+ * @returns {CMatrix}
+ */
+export function CreateRotate3DX(angle) {
+  let fg = angle % 360.0;
+  let angleInRadians = (fg / 180.0) * Math.PI;
+
+  let RM = new CMatrix (4, 4);
+  RM.Matrix = [
+    [1, 0, 0, 0],
+    [Math.cos(angleInRadians), -Math.sin(angleInRadians), 0, 0],
+    [Math.sin(angleInRadians), Math.cos(angleInRadians), 0, 0],
+    [0, 0, 0, 1]
+  ];
+
+  return TM;
+}
+
+/**
+ * @param {number} angle
+ * @returns {CMatrix}
+ */
+export function CreateRotate3DY(angle) {
+  let fg = angle % 360.0;
+  let angleInRadians = (fg / 180.0) * Math.PI;
+
+  let RM = new CMatrix (4, 4);
+  RM.Matrix = [
+    [Math.cos(angleInRadians), 0, Math.sin(angleInRadians), 0],
+    [0, 1, 0, 0],
+    [-Math.sin(angleInRadians), 0, Math.cos(angleInRadians), 0],
+    [0, 0, 0, 1]
+  ];
+
+  return TM;
+}
+
+/**
+ * @param {CVector} V1
+ * @param {CVector} V2
+ */
+export function AngleBetweenVectors(V1, V2) {
+  let cos = CosBetweenVectors(V1, V2);
+  let angle = cos > 0 ? Math.acos(cos) : Math.PI - Math.acos(cos);
+  return (angle / Math.PI) * 180;
 }
