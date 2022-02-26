@@ -1,5 +1,5 @@
 import { CMatrix } from "./CMatrix.js";
-export class CVector extends CMatrix {
+class CVector extends CMatrix {
     constructor(rows) {
         super(rows, 1);
     }
@@ -30,3 +30,5 @@ export class CVector extends CMatrix {
       return result;
     }
 }
+
+module.exports = CVector;

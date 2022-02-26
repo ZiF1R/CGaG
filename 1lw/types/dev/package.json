@@ -1,7 +1,7 @@
 {
-  "name": "cmatrix-cvector",
-  "version": "1.0.1",
-  "description": "CMatrix and CVector classes",
+  "name": "computer-graphics-utils",
+  "version": "1.0.4",
+  "description": "Contains classes for working with computer graphics in your programs",
   "main": "CMatrix.js",
   "scripts": {
     "dev": "npm version patch && npm publish"
