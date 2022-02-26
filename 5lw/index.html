@@ -7,11 +7,35 @@
 
   <script type="module" src="./index.js"></script>
 
+  <style>
+    body {
+      font-family: "Raleway";
+    }
+
+    #canvas {
+      border: 1px solid;
+    }
+
+    #draw-mode {
+      margin-bottom: 15px;
+    }
+
+    label {
+      cursor: pointer;
+      user-select: none;
+    }
+  </style>
+
   <title>Document</title>
 </head>
 <body>
 
-  <canvas id="canvas" width="700" height="700"></canvas>
+  <label>
+    <input type="checkbox" id="draw-mode" />
+    Draw without invisible lines
+  </label><br>
+
+  <canvas id="canvas" width="900" height="650"></canvas>
   
 </body>
 </html>

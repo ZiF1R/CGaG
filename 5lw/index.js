@@ -27,17 +27,12 @@ class CPyramid {
       [0, 0, 0, 6, 6, 6],
       [0, 0, 0, 0, 0, 0]
     ];
+
+    this.SetDrawMode(this.DrawWithInvisibleLines);
+    this.CurrentDrawModeFunction(new CVector(3));
   }
 
-  GetRect(vertexes, viewRect) {
-
-  }
-
-  /**
-   * @param {CMatrix} viewPoint contains (x, y, z) coordinates in decart coordinate system
-   * @param {Array<Array<number>>} viewArea two dimentional array, contains coordinates of top left and bottom right corners
-   */
-  DrawWithoutInvisibleLines(viewPoint, viewArea) {
+  CalculatePointsCoordinates(viewPoint) {
     let VM = CreateViewCoord(
       viewPoint.Matrix[0][0],
       viewPoint.Matrix[1][0],
@@ -53,7 +48,7 @@ class CPyramid {
 
     let MW = SpaceToWindow(
       [[x_min, y_min], [x_max, y_max]],
-      [[50, 50], [450, 450]]
+      [[300, 100], [550, 400]]
     );
 
     // go through the vertexes
@@ -69,6 +64,19 @@ class CPyramid {
       points.push(new CPoint(temp.Matrix[0][0], temp.Matrix[1][0]));
     }
 
+    return points;
+  }
+
+  /**
+   * @param {CMatrix} viewPoint contains (x, y, z) coordinates in decart coordinate system
+   */
+  DrawWithoutInvisibleLines(viewPoint) {
+    ctx.beginPath();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    let points = this.CalculatePointsCoordinates(viewPoint);
+
+    // draw the pyramid
     ctx.moveTo(points[2].x, points[2].y);
     for (let i = 0; i < 3; i++)
       ctx.lineTo(points[i].x, points[i].y);
@@ -81,16 +89,87 @@ class CPyramid {
       ctx.moveTo(points[i].x, points[i].y);
       ctx.lineTo(points[i + 3].x, points[i + 3].y);
     }
-    
+
     ctx.lineWidth = "1";
     ctx.strokeStyle = "#000";
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.stroke();
+    ctx.closePath();
   }
 
-  DrawWithInvisibleLines(viewPoint, viewArea) {
+  /**
+   * @param {CMatrix} viewPoint contains (x, y, z) coordinates in decart coordinate system
+   */
+  DrawWithInvisibleLines(viewPoint) {
+    let ViewDecart = SphereToDecart(viewPoint);
+    ctx.beginPath();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    let points = this.CalculatePointsCoordinates(viewPoint);
+    
+    let R1 = new CVector(3),
+      R2 = new CVector(3);
+    for (let i = 0; i < 3; i++) {
+      let VE = new CVector(3);
+      VE.Matrix = [
+        [this.Vertexes.Matrix[0][i + 3]],
+        [this.Vertexes.Matrix[1][i + 3]],
+        [this.Vertexes.Matrix[2][i + 3]],
+      ];
 
+      let k = i === 2 ? 0 : i + 1;
+
+      R1.Matrix = [
+        [this.Vertexes.Matrix[0][i]],
+        [this.Vertexes.Matrix[1][i]],
+        [this.Vertexes.Matrix[2][i]],
+      ];
+      R2.Matrix = [
+        [this.Vertexes.Matrix[0][k]],
+        [this.Vertexes.Matrix[1][k]],
+        [this.Vertexes.Matrix[2][k]],
+      ];
+
+      let V1 = R2.Subtract(R1);
+      let V2 = VE.Subtract(R1);
+
+      let VN = VectorMult(V2, V1);
+
+      if (ScalarMult(VN, ViewDecart) >= 0) {
+        ctx.moveTo(points[i].x, points[i].y);
+        ctx.lineTo(points[k].x, points[k].y);
+        ctx.lineTo(points[k + 3].x, points[k + 3].y);
+        ctx.lineTo(points[i + 3].x, points[i + 3].y);
+        ctx.lineTo(points[i].x, points[i].y);
+      }
+    }
+
+    if (ViewDecart.Matrix[2][0] >= 0) {
+      ctx.moveTo(points[5].x, points[5].y);
+      for (let i = 3; i < 6; i++)
+        ctx.lineTo(points[i].x, points[i].y);
+    } else {
+      ctx.moveTo(points[2].x, points[2].y);
+      for (let i = 0; i < 3; i++)
+        ctx.lineTo(points[i].x, points[i].y);
+    }
+
+    ctx.lineWidth = "1";
+    ctx.strokeStyle = "#000";
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+    ctx.closePath();
+  }
+
+  SetDrawMode(fn) {
+    if (
+      fn !== this.DrawWithInvisibleLines &&
+      fn !== this.DrawWithoutInvisibleLines
+    ) throw new Error();
+
+    this.CurrentDrawModeFunction = (...args) => fn.call(this, ...args);
   }
 }
 
@@ -123,11 +202,48 @@ function SpaceToWindow(areaInWorldCoordinates, areaInWindowCoordinates) {
 const pyramid = new CPyramid();
 let viewPoint = new CVector(3);
 viewPoint.Matrix = [
-  [0],
+  [10],
   [0],
   [0]
-]
-pyramid.DrawWithoutInvisibleLines(viewPoint);
+];
+pyramid.SetDrawMode(pyramid.DrawWithoutInvisibleLines, viewPoint);
+
+let clickCoordinates = {};
+canvas.addEventListener("mousedown", (e) => {
+  console.log("mousedown " + viewPoint.Matrix)
+  clickCoordinates = { x: e.clientX, y: e.clientY};
+
+  canvas.addEventListener("mousemove", rotatePyramid);
+  canvas.addEventListener("mouseup", mouseUp);
+
+  function mouseUp() {
+    console.log("mouseup " + viewPoint.Matrix)
+    canvas.removeEventListener("mousemove", rotatePyramid);
+    canvas.removeEventListener("mouseup", mouseUp);
+  }
+});
+
+const drawModeCheckbox = document.getElementById("draw-mode");
+drawModeCheckbox.addEventListener("change", (e) => {
+  if (e.target.checked)
+    pyramid.SetDrawMode(pyramid.DrawWithInvisibleLines);
+  else
+    pyramid.SetDrawMode(pyramid.DrawWithoutInvisibleLines);
+
+  pyramid.CurrentDrawModeFunction(viewPoint);
+});
+
+function rotatePyramid(e) {
+  console.log("mousemove " + viewPoint.Matrix)
+  let x = viewPoint.Matrix[0][0] + clickCoordinates.x - e.clientX;
+  let y = viewPoint.Matrix[1][0] + clickCoordinates.y - e.clientY;
+
+  x %= 360;
+  y %= 360;
+
+  viewPoint.Matrix = [[10], [x], [y]];
+  pyramid.CurrentDrawModeFunction(viewPoint);
+}
 
 /**
  * @param {number} r
