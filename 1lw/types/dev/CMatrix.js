@@ -1,4 +1,4 @@
-class CMatrix {
+export class CMatrix {
     constructor(...args) {
         if (args.length === 2) {
             let [rows, columns] = args;
@@ -145,5 +145,3 @@ function operationsForNumber(matrix, number, operation) {
   }));
   return result;
 }
-
-module.exports = CMatrix;
