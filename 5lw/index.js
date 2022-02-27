@@ -48,7 +48,7 @@ class CPyramid {
 
     let MW = SpaceToWindow(
       [[x_min, y_min], [x_max, y_max]],
-      [[300, 100], [550, 400]]
+      [[150, 50], [600, 500]]
     );
 
     // go through the vertexes
@@ -70,7 +70,7 @@ class CPyramid {
   /**
    * @param {CMatrix} viewPoint contains (x, y, z) coordinates in decart coordinate system
    */
-  DrawWithoutInvisibleLines(viewPoint) {
+  DrawWithInvisibleLines(viewPoint) {
     ctx.beginPath();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
@@ -101,7 +101,7 @@ class CPyramid {
   /**
    * @param {CMatrix} viewPoint contains (x, y, z) coordinates in decart coordinate system
    */
-  DrawWithInvisibleLines(viewPoint) {
+  DrawWithoutInvisibleLines(viewPoint) {
     let ViewDecart = SphereToDecart(viewPoint);
     ctx.beginPath();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -201,12 +201,8 @@ function SpaceToWindow(areaInWorldCoordinates, areaInWindowCoordinates) {
 
 const pyramid = new CPyramid();
 let viewPoint = new CVector(3);
-viewPoint.Matrix = [
-  [10],
-  [0],
-  [0]
-];
-pyramid.SetDrawMode(pyramid.DrawWithoutInvisibleLines, viewPoint);
+viewPoint.Matrix = [[10], [0], [0]];
+pyramid.SetDrawMode(pyramid.DrawWithInvisibleLines, viewPoint);
 
 let newViewPoint = new CVector(3);
 function rotatePyramid(e) {
@@ -237,9 +233,9 @@ canvas.addEventListener("mousedown", (e) => {
 const drawModeCheckbox = document.getElementById("draw-mode");
 drawModeCheckbox.addEventListener("change", (e) => {
   if (e.target.checked)
-    pyramid.SetDrawMode(pyramid.DrawWithInvisibleLines);
-  else
     pyramid.SetDrawMode(pyramid.DrawWithoutInvisibleLines);
+  else
+    pyramid.SetDrawMode(pyramid.DrawWithInvisibleLines);
 
   pyramid.CurrentDrawModeFunction(viewPoint);
 });
