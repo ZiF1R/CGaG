@@ -56,7 +56,6 @@ function GetProjection(area, data, viewPoint) {
     [x_max, y_min]
   ];
 }
-// GetProjection([[1, 2], [3, 4]], new CMatrix(3, 3), new CVector(3));
 
 // MatrF === SurfacePointsMatrix
 // MatrView === SurfaceProjectionMatrix
