@@ -7,11 +7,32 @@
 
     <script defer type="module" src="./index.js"></script>
 
+    <style>
+      #canvas {
+        border: 1px solid;
+      }
+    </style>
+
     <title>Document</title>
   </head>
   <body>
 
-    <canvas id="canvas" width="900" height="650"></canvas>
+    <form>
+      <label>
+        <input type="radio" name="func" id="f1" checked />
+        f(x) = x² + y²
+      </label><br />
+      <label>
+        <input type="radio" name="func" id="f2" />
+        f(x) = x² - y²
+      </label><br />
+      <label>
+        <input type="radio" name="func" id="f3" />
+        f(x) = cos(x) - sin(y)
+      </label>
+    </form>
+
+    <canvas id="canvas" width="900" height="600"></canvas>
     
   </body>
 </html>
