@@ -28,8 +28,18 @@ class CPyramid {
       [0, 0, 0, 0, 0, 0]
     ];
 
+    this.WinArea = [[150, 50], [600, 500]];
     this.SetDrawMode(this.DrawWithInvisibleLines);
     this.CurrentDrawModeFunction(new CVector(3));
+  }
+
+  SetWinArea(dx, dy) {
+    this.WinArea = [[150, 50], [600, 500]];
+    this.WinArea[0][0] += dx;
+    this.WinArea[1][0] -= dx;
+
+    this.WinArea[0][1] += dy;
+    this.WinArea[1][1] -= dy;
   }
 
   CalculatePointsCoordinates(viewPoint) {
@@ -48,7 +58,7 @@ class CPyramid {
 
     let MW = SpaceToWindow(
       [[x_min, y_min], [x_max, y_max]],
-      [[150, 50], [600, 500]]
+      this.WinArea
     );
 
     // go through the vertexes
@@ -229,6 +239,12 @@ canvas.addEventListener("mousedown", (e) => {
     canvas.removeEventListener("mouseup", mouseUp);
   }
 });
+
+const viewDistance = document.getElementById("view-distance");
+viewDistance.addEventListener("input", (e) => {
+  pyramid.SetWinArea(+e.target.value, +e.target.value);
+  pyramid.CurrentDrawModeFunction(viewPoint);
+})
 
 const drawModeCheckbox = document.getElementById("draw-mode");
 drawModeCheckbox.addEventListener("change", (e) => {
