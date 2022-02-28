@@ -113,6 +113,15 @@ class CPlot3D {
     return this;
   }
 
+  SetWinArea(dx, dy) {
+    this.WindowArea = [[200, 50], [700, 550]];
+    this.WindowArea[0][0] += dx;
+    this.WindowArea[1][0] -= dx;
+
+    this.WindowArea[0][1] += dy;
+    this.WindowArea[1][1] -= dy;
+  }
+
   /**
    * @param {number} r
    * @param {number} azimuth - from X axis
@@ -229,7 +238,7 @@ class CPlot3D {
   }
 }
 
-let plot = new CPlot3D([[50, 50], [550, 550]]);
+let plot = new CPlot3D([[200, 50], [700, 550]]);
 
 document.getElementById("f1").addEventListener("click", (e) => {
   plot.SetFunction(func1, 0.25, 0.25);
@@ -244,6 +253,16 @@ document.getElementById("f3").addEventListener("click", (e) => {
   plot.Draw();
 });
 
+const viewDistance = document.getElementById("view-distance");
+viewDistance.addEventListener("input", (e) => {
+  plot.SetWinArea(+e.target.value, +e.target.value);
+  plot.SetViewPoint(
+    plot.ViewPoint.Matrix[0][0],
+    plot.ViewPoint.Matrix[1][0],
+    plot.ViewPoint.Matrix[2][0]
+  );
+})
+
 
 let newViewPoint = new CVector(3);
 let lastViewPoint = {};
@@ -254,7 +273,7 @@ function rotatePlot(e) {
   x %= 360;
   y %= 360;
 
-  newViewPoint.Matrix = [[50], [x], [y]];
+  newViewPoint.Matrix = [[lastViewPoint.matrix[0][0]], [x], [y]];
   plot.SetViewPoint(
     newViewPoint.Matrix[0][0],
     newViewPoint.Matrix[1][0],
