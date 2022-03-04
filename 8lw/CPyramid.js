@@ -445,33 +445,6 @@ const pyramid = new CPyramid();
 let viewPoint = new CVector(3);
 viewPoint.Matrix = [[20], [0], [0]];
 
-let newViewPoint = new CVector(3);
-function rotatePyramid(e) {
-  let x = viewPoint.Matrix[1][0] + (clickCoordinates.x - e.clientX);
-  let y = viewPoint.Matrix[2][0] + (clickCoordinates.y - e.clientY);
-
-  x %= 360;
-  y %= 360;
-
-  newViewPoint.Matrix = [[20], [x], [y]];
-  // pyramid.DrawWithoutInvisibleLines(newViewPoint);
-  pyramid.ColorDraw(newViewPoint);
-}
-
-let clickCoordinates = {};
-canvas.addEventListener("mousedown", (e) => {
-  clickCoordinates = { x: e.clientX, y: e.clientY};
-
-  canvas.addEventListener("mousemove", rotatePyramid);
-  canvas.addEventListener("mouseup", mouseUp);
-
-  function mouseUp() {
-    viewPoint.Matrix = newViewPoint.Matrix;
-    canvas.removeEventListener("mousemove", rotatePyramid);
-    canvas.removeEventListener("mouseup", mouseUp);
-  }
-});
-
 /**
  * @param {number} r
  * @param {number} azimuth - from X axis
