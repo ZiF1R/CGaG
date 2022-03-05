@@ -35,9 +35,9 @@ class CPlot2D {
     this.WinArea = [[100, 100], [500, 500]];
     this.WorldArea = [[0, 0], [5, 5]];
 
-    plot.OnLagrange();
-    plot.Draw();
-    plot.DrawLagrange();
+    this.OnLagrange();
+    this.Draw();
+    this.DrawLagrange();
   }
 
   /**
