@@ -128,6 +128,7 @@ function operationsForMatrix(matrix, otherMatrix, operation) {
 }
 function operationsForNumber(matrix, number, operation) {
   let result = new CMatrix(matrix.Rows, matrix.Columns);
+  result.Matrix = matrix.Matrix;
   result.Matrix.map((arr) => arr.map((num) => {
       switch (operation) {
           case "+":
