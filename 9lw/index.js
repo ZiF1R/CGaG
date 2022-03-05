@@ -14,9 +14,9 @@ function Lagrange(X, Y, x, size) {
   let lagrange_pol = 0,
     basic_pol;
 
-  for (let i = 1; i < size; i++) {
+  for (let i = 0; i < size; i++) {
     basic_pol = 1;
-    for (let j = 1; j < size; j++) {
+    for (let j = 0; j < size; j++) {
       if (j === i)
         continue;
       basic_pol *= (x - X.Matrix[j][0]) / (X.Matrix[i][0] - X.Matrix[j][0]);
@@ -102,12 +102,27 @@ class CPlot2D {
     ctx.closePath();
   }
 
-  OnBezier(dt, pointsCount) {
+  OnBezier(dt, pointsCount, last = false) {
     this.X.changeSize(pointsCount, this.X.Columns);
     this.Y.changeSize(pointsCount, this.Y.Columns);
-    for (let i = 0; i < pointsCount; i++) {
-      this.X.Matrix[i][0] = i * dt;
-      this.Y.Matrix[i][0] = Math.sin(i * dt);
+
+    if (last) {
+      this.X.Matrix[0][0] = 2*dt;
+      this.Y.Matrix[0][0] = 0;
+    
+      this.X.Matrix[1][0] = 7*dt;
+      this.Y.Matrix[1][0] = 3;
+      
+      this.X.Matrix[2][0] = 0;
+      this.Y.Matrix[2][0] = 3;
+      
+      this.X.Matrix[3][0] = 5*dt;
+      this.Y.Matrix[3][0] = 0;
+    } else {
+      for (let i = 0; i < pointsCount; i++) {
+        this.X.Matrix[i][0] = i * dt;
+        this.Y.Matrix[i][0] = Math.sin(i * dt);
+      }
     }
     this.SetParams(this.X, this.Y, this.WinArea);
   }
@@ -169,7 +184,7 @@ class CPlot2D {
       ctx.lineTo(xInWindow, yInWindow);
     }
     
-    ctx.lineWidth = "2";
+    ctx.lineWidth = "3";
     ctx.strokeStyle = "coral";
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -179,27 +194,23 @@ class CPlot2D {
 
   DrawLagrange() {
     let dx = 0.2,
-      xL = 0,
       xH = Math.PI,
-      N = (xH - xL) / (Math.PI / 4);
+      N = xH / (Math.PI / 4);
 
-    let NL = Math.round((xH - xL) / dx),
+    let NL = Math.round(xH / dx),
       XL = new CVector(NL + 1),
       YL = new CVector(NL + 1);
 
-    XL.Matrix[0][0] = 1
     for (let i = 0; i < NL + 1; i++) {
-      XL.Matrix[i][0] = xL + i * dx;
+      XL.Matrix[i][0] = i * dx;
       YL.Matrix[i][0] = Lagrange(this.X, this.Y, XL.Matrix[i][0], N + 1);
     }
 
     let xInWorld = XL.Matrix[0][0],
-      yInWorld = YL.Matrix[0][0],
-      xInWindow = 0,
-      yInWindow = 0;
+      yInWorld = YL.Matrix[0][0];
 
     ctx.beginPath();
-    [xInWindow, yInWindow] = this.GetWindowCoordinates(xInWorld, yInWorld);
+    let [xInWindow, yInWindow] = this.GetWindowCoordinates(xInWorld, yInWorld);
     ctx.moveTo(xInWindow, yInWindow);
     for (let i = 1; i < XL.Rows; i++) {
       xInWorld = XL.Matrix[i][0];
@@ -208,7 +219,7 @@ class CPlot2D {
       ctx.lineTo(xInWindow, yInWindow);
     }
     
-    ctx.lineWidth = "2";
+    ctx.lineWidth = "3";
     ctx.strokeStyle = "coral";
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -258,7 +269,7 @@ let beziers = [bezier1, bezier2, bezier3, bezier4, bezier5],
     [Math.PI / 3, 4],
     [Math.PI / 2, 3],
     [Math.PI / 2, 5],
-    [Math.PI / 4, 4]
+    [Math.PI / 4, 4, true]
   ];
 
 beziers.forEach((bezier, i) => {
