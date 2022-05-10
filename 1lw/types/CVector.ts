@@ -9,4 +9,5 @@ export class CVector extends CMatrix {
   declare Subtract: (parameter: number | CMatrix) => CMatrix;
 }
 
+//module contains realization of methods with operations for vectors
 import "./CVector-components/CVector-operators";

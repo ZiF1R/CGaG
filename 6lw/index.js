@@ -7,55 +7,13 @@ import {
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-const func1 = (x, y) => Math.pow(x, 2) + Math.pow(y, 2);
-const func2 = (x, y) => Math.pow(x, 2) - Math.pow(y, 2);
-const func3 = (x, y) => Math.cos(x) - Math.sin(y);
-
-/**
- * @param {Array<Array<number>>} area
- * @param {CMatrix} data matrix with data
- * @param {CVector} viewPoint coordinates of view point
- */
-function GetProjection(area, data, viewPoint) {
-  let z_max = data.Max(),
-    z_min = data.Min();
-
-  let MV = CreateViewCoord(
-    viewPoint.Matrix[0][0],
-    viewPoint.Matrix[1][0],
-    viewPoint.Matrix[2][0],
-  );
-
-  let PS = new CMatrix(4, 4);
-  PS.Matrix = [
-    [area[0][0], area[0][0], area[1][0], area[1][0]],
-    [area[0][1], area[1][1], area[0][1], area[1][1]],
-    [z_max, z_max, z_max, z_max],
-    [1, 1, 1, 1],
-  ];
-
-  let Q = MV.Multiply(PS);
-  let V = Q.getRow(0);
-  let x_min = Math.min(...V),
-    x_max = Math.max(...V);
-
-  V = Q.getRow(1);
-  let y_max = Math.max(...V);
-
-  PS.Matrix[2][0] =
-    PS.Matrix[2][1] =
-    PS.Matrix[2][2] =
-    PS.Matrix[2][3] = z_min;
-
-  Q = MV.Multiply(PS);
-  V = Q.getRow(1);
-  let y_min = Math.min(...V);
-
-  return [
-    [x_min, y_max],
-    [x_max, y_min]
-  ];
-}
+// функции для построения поверхностей
+const func1 = (x, y) => Math.exp(x) - Math.exp(y);
+const func2 = (x, y) => Math.sqrt(x**2 + y**2) + 3 * Math.cos(Math.sqrt(x**2 + y**2)) + 5;
+const func3 = (x, y) => (x**3 * y - y**3 * x) / 40;
+// const func11 = (x, y) => Math.pow(x, 2) + Math.pow(y, 2);
+// const func22 = (x, y) => Math.pow(x, 2) - Math.pow(y, 2);
+// const func33 = (x, y) => Math.cos(x) - Math.sin(y);
 
 // MatrF === SurfacePointsMatrix
 // MatrView === SurfaceProjectionMatrix
@@ -70,24 +28,24 @@ class CPoint {
 class CPlot3D {
   constructor(winArea = [[100, 100], [400, 400]]) {
     this.ViewPoint = new CVector(3);
-    this.ViewPoint.Matrix = [[50], [30], [40]];
-    this.ViewArea = [[-5, 5], [5, -5]];
-    this.WindowArea = winArea;
-    this.SurfacePointsMatrix = [];
-    this.SurfaceProjectionMatrix = [];
-    this.WindowMatrix = [];
+    this.ViewPoint.Matrix = [[50], [30], [40]]; // координаты точки наблюдения
+    this.ViewArea = [[-5, 5], [5, -5]]; // область в мировых координатах
+    this.WindowArea = winArea; // область в оконных координатах
+    this.SurfacePointsMatrix = []; // точки поверхности
+    this.SurfaceProjectionMatrix = []; // точки проекции поверхности
+    this.WindowMatrix = []; // точки поверхности в оконных координатах
 
+    // устанавливаем функцию поверхности по умалчанию и рисуем ее
     this.SetFunction(func1, 0.25, 0.25);
     this.Draw();
   }
 
   /**
-   * @param {Function} fn 
-   * @param {number} dx 
-   * @param {number} dy 
-   * @param {CMatrix} viewPoint 
-   * @param {Array<Array<number>>} area 
-   * @returns 
+   * @param {Function} fn - новая функция для описания поверхности
+   * @param {number} dx - приращение координаты х
+   * @param {number} dy  - приращение координаты у
+   * @param {CMatrix} viewPoint - точка наблюдения
+   * @param {Array<Array<number>>} area - область в мировых координатах
    */
   SetFunction(fn, dx, dy, area = [[-5, 5], [5, -5]]) {
     this.ActiveFunction = fn;
@@ -103,6 +61,7 @@ class CPlot3D {
     return this;
   }
 
+  // функция перерисовки
   Rerender() {
     this.SurfaceProjectionMatrix = [];
     this.CreateSurfaceProjectionMatrix();
@@ -113,6 +72,7 @@ class CPlot3D {
     return this;
   }
 
+  // задает новые размеры области при масштабировании поверхности
   SetWinArea(dx, dy) {
     this.WindowArea = [[200, 50], [700, 550]];
     this.WindowArea[0][0] += dx;
@@ -123,9 +83,10 @@ class CPlot3D {
   }
 
   /**
-   * @param {number} r
+   * @param {number} r - distance from start of coordinates
    * @param {number} azimuth - from X axis
    * @param {number} angle - from Z axis
+   * устанавливает новые координаты точки наблюдения
    */
   SetViewPoint(r, azimuth, angle) {
     this.ViewPoint.Matrix = [[r], [azimuth], [angle]];
@@ -134,6 +95,7 @@ class CPlot3D {
     return this;
   }
 
+  // создает точки поверхности
   CreateSurfacePointsMatrix(dx, dy) {
     let [[x_min, y_max], [x_max, y_min]] = this.ViewArea;
 
@@ -149,6 +111,7 @@ class CPlot3D {
     return this;
   }
 
+  // создает точки проекции поверхности
   CreateSurfaceProjectionMatrix() {
     let MV = CreateViewCoord(
       this.ViewPoint.Matrix[0][0],
@@ -189,6 +152,7 @@ class CPlot3D {
     return this;
   }
 
+  // точки поверхности в оконных координатах
   CreateWindowMatrix() {
     let MV = SpaceToWindow(this.ViewArea, this.WindowArea);
 
@@ -206,6 +170,7 @@ class CPlot3D {
     return this;
   }
 
+  // отображает поверхность
   Draw() {
     ctx.beginPath();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -227,6 +192,8 @@ class CPlot3D {
       }
     }
 
+    ctx.fillStyle = "white";
+    ctx.fill();
     ctx.lineWidth = "1";
     ctx.strokeStyle = "#000";
     ctx.lineCap = 'round';
@@ -240,6 +207,7 @@ class CPlot3D {
 
 let plot = new CPlot3D([[200, 50], [700, 550]]);
 
+// обработчики для изменения функции поверхности
 document.getElementById("f1").addEventListener("click", (e) => {
   plot.SetFunction(func1, 0.25, 0.25);
   plot.Draw();
@@ -253,6 +221,7 @@ document.getElementById("f3").addEventListener("click", (e) => {
   plot.Draw();
 });
 
+// обработчик для изменения масштаба отображения
 const viewDistance = document.getElementById("view-distance");
 viewDistance.addEventListener("input", (e) => {
   plot.SetWinArea(+e.target.value, +e.target.value);
@@ -263,9 +232,9 @@ viewDistance.addEventListener("input", (e) => {
   );
 })
 
-
 let newViewPoint = new CVector(3);
 let lastViewPoint = {};
+// функция для поворота поверхности
 function rotatePlot(e) {
   let x = lastViewPoint.matrix[1][0] + (clickCoordinates.x - e.clientX);
   let y = lastViewPoint.matrix[2][0] + (clickCoordinates.y - e.clientY);
@@ -281,6 +250,7 @@ function rotatePlot(e) {
   );
 }
 
+// обработчик для поворота поверхности с помощью мыши
 let clickCoordinates = {};
 canvas.addEventListener("mousedown", (e) => {
   clickCoordinates = { x: e.clientX, y: e.clientY};

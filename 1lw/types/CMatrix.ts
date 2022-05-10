@@ -1,7 +1,7 @@
 export class CMatrix {
-  private rows: number;
-  private columns: number;
-  private matrix: number[][];
+  private rows: number; // число строк
+  private columns: number; // число столбцов
+  private matrix: number[][]; // матрица
 
   public constructor(rows: number, columns: number); // Default constructor, fill matrix with zeros
   public constructor(otherMatrix: CMatrix); // Constructor for copying other matrix
@@ -50,12 +50,14 @@ export class CMatrix {
     return this.columns;
   }
 
+  // полусить строку по индексу
   getRow(index: number): number[] | null {
     if (index > this.rows || index < 0)
       return null;
     return this.matrix[index];
   }
 
+  // полусить столбец по индексу
   getColumn(index: number): number[] | null {
     if (index > this.columns || index < 0)
       return null;
@@ -106,10 +108,24 @@ export class CMatrix {
    */
   declare Max: () => number;
 
+  /**
+   * @returns sum of matrix and number or other matrix
+   */
   declare Add: (parameter: CMatrix | number) => CMatrix;
+
+  /**
+   * @returns substraction of matrix and number or other matrix
+   */
   declare Subtract: (parameter: CMatrix | number) => CMatrix;
+
+  /**
+   * @returns multiplication of matrix and number or other matrix
+   */
   declare Multiply: (parameter: CMatrix | number) => CMatrix;
 }
 
+// module contains realization of methods
 import "./CMatrix-components/CMatrix-methods";
+
+// module contains realization of methods with operations for matrix
 import "./CMatrix-components/CMatrix-operators";

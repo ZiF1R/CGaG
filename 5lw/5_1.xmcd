@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?validation-md5-digest fc11d9ddacb8965cb85fee08567514e0?>
+<?validation-md5-digest 6d7c3eb997d0ba95f368b1b537150754?>
 <worksheet version="3.0.3" xmlns="http://schemas.mathsoft.com/worksheet30" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ws="http://schemas.mathsoft.com/worksheet30" xmlns:ml="http://schemas.mathsoft.com/math30" xmlns:u="http://schemas.mathsoft.com/units10" xmlns:p="http://schemas.mathsoft.com/provenance10">
 	<pointReleaseData/>
 	<metadata>
@@ -10,12 +10,12 @@
 			<author>Пользователь Windows</author>
 			<company>Parametric Technology Corporation</company>
 			<keywords/>
-			<revisedBy>Lenovo</revisedBy>
+			<revisedBy>HP</revisedBy>
 		</userData>
 		<identityInfo>
-			<revision>66</revision>
+			<revision>67</revision>
 			<documentID>76804E8E-4D18-43B2-9711-FC355001B89A</documentID>
-			<versionID>EAF32C9D-C0A4-4829-AB09-80C55C4BF4C1</versionID>
+			<versionID>EC302136-1E54-44B4-B79D-8ED422117EFF</versionID>
 			<parentVersionID>00000000-0000-0000-0000-000000000000</parentVersionID>
 			<branchID>00000000-0000-0000-0000-000000000000</branchID>
 		</identityInfo>
@@ -88,7 +88,7 @@
 					<unit format-units="true" simplify-units="true" fractional-unit-exponent="false"/>
 				</results>
 			</mathRendering>
-			<pageModel show-page-frame="false" show-header-frame="false" show-footer-frame="false" header-footer-start-page="1" paper-code="9" orientation="portrait" print-single-page-width="false" page-width="595.5" page-height="842.25">
+			<pageModel show-page-frame="false" show-header-frame="false" show-footer-frame="false" header-footer-start-page="1" paper-code="9" orientation="portrait" print-single-page-width="false" page-width="594.75" page-height="842.25">
 				<margins left="86.4" right="86.4" top="86.4" bottom="86.4"/>
 				<header use-full-page-width="false"/>
 				<footer use-full-page-width="false"/>
@@ -329,10 +329,10 @@
 		<region region-id="26058" left="30" top="333" width="27.75" height="16.5" align-x="45" align-y="342" show-border="false" show-highlight="false" is-protected="true" z-order="0" background-color="inherit" tag="">
 			<math optimize="false" disable-calc="false">
 				<ml:provenance expr-id="1" xmlns:ml="http://schemas.mathsoft.com/math30">
-					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493972" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290489956" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</originRef>
-					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493212" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290489356" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</parentRef>
 					<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -353,10 +353,10 @@
 		<region region-id="26059" left="84" top="333" width="29.25" height="16.5" align-x="100.5" align-y="342" show-border="false" show-highlight="false" is-protected="true" z-order="0" background-color="inherit" tag="">
 			<math optimize="false" disable-calc="false">
 				<ml:provenance expr-id="1" xmlns:ml="http://schemas.mathsoft.com/math30">
-					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493092" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490356" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</originRef>
-					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232494052" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490236" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</parentRef>
 					<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -422,10 +422,10 @@
 		<region region-id="26062" left="24" top="400.5" width="42.75" height="45.75" align-x="51" align-y="426" show-border="false" show-highlight="false" is-protected="true" z-order="0" background-color="inherit" tag="">
 			<math optimize="false" disable-calc="false">
 				<ml:provenance expr-id="1" xmlns:ml="http://schemas.mathsoft.com/math30">
-					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232494012" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290489636" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</originRef>
-					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493972" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290489956" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</parentRef>
 					<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -451,10 +451,10 @@
 			<math optimize="false" disable-calc="false">
 				<ml:eval placeholderMultiplicationStyle="default" xmlns:ml="http://schemas.mathsoft.com/math30">
 					<ml:provenance expr-id="1">
-						<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493692" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+						<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490836" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 							<hash/>
 						</originRef>
-						<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493092" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+						<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490356" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 							<hash/>
 						</parentRef>
 						<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -484,10 +484,10 @@
 		<region region-id="26064" left="30" top="465" width="113.25" height="16.5" align-x="43.5" align-y="474" show-border="false" show-highlight="false" is-protected="true" z-order="0" background-color="inherit" tag="">
 			<math optimize="false" disable-calc="false">
 				<ml:provenance expr-id="1" xmlns:ml="http://schemas.mathsoft.com/math30">
-					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232494092" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490676" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</originRef>
-					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493212" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490876" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</parentRef>
 					<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -878,10 +878,10 @@
 		<region region-id="26076" left="24" top="813" width="62.25" height="12.75" align-x="45" align-y="822" show-border="false" show-highlight="false" is-protected="true" z-order="0" background-color="inherit" tag="">
 			<math optimize="false" disable-calc="false">
 				<ml:provenance expr-id="1" xmlns:ml="http://schemas.mathsoft.com/math30">
-					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493732" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490116" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</originRef>
-					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493692" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490036" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</parentRef>
 					<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -1058,10 +1058,10 @@
 		<region region-id="26083" left="24" top="1035" width="62.25" height="12.75" align-x="45" align-y="1044" show-border="false" show-highlight="false" is-protected="true" z-order="0" background-color="inherit" tag="">
 			<math optimize="false" disable-calc="false">
 				<ml:provenance expr-id="1" xmlns:ml="http://schemas.mathsoft.com/math30">
-					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493172" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290489756" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</originRef>
-					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493132" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="3C91956F-0D3F-45B8-B209-6A4282C5C2CF" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290489196" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</parentRef>
 					<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -1396,10 +1396,10 @@
 		<region region-id="26131" left="30" top="1557" width="79.5" height="16.5" align-x="60" align-y="1566" show-border="false" show-highlight="false" is-protected="true" z-order="0" background-color="inherit" tag="">
 			<math optimize="false" disable-calc="false">
 				<ml:provenance expr-id="1" xmlns:ml="http://schemas.mathsoft.com/math30">
-					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493932" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490436" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</originRef>
-					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232492932" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490836" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</parentRef>
 					<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -1493,10 +1493,10 @@
 		<region region-id="26159" left="30" top="1667.25" width="235.5" height="32.25" align-x="61.5" align-y="1692" show-border="false" show-highlight="false" is-protected="true" z-order="0" background-color="inherit" tag="">
 			<math optimize="false" disable-calc="false">
 				<ml:provenance expr-id="1" xmlns:ml="http://schemas.mathsoft.com/math30">
-					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493012" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290490156" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</originRef>
-					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232492972" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290489236" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</parentRef>
 					<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -2068,10 +2068,10 @@
 		<region region-id="26371" left="36" top="2463" width="85.5" height="16.5" align-x="64.5" align-y="2472" show-border="false" show-highlight="false" is-protected="true" z-order="0" background-color="inherit" tag="">
 			<math optimize="false" disable-calc="false">
 				<ml:provenance expr-id="1" xmlns:ml="http://schemas.mathsoft.com/math30">
-					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493212" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290483236" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</originRef>
-					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493252" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290483716" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</parentRef>
 					<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -2096,10 +2096,10 @@
 		<region region-id="26372" left="144" top="2442.75" width="225.75" height="53.25" align-x="222" align-y="2472" show-border="false" show-highlight="false" is-protected="true" z-order="0" background-color="inherit" tag="">
 			<math optimize="false" disable-calc="false">
 				<ml:provenance expr-id="1" xmlns:ml="http://schemas.mathsoft.com/math30">
-					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493212" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<originRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290483236" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</originRef>
-					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="232493292" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
+					<parentRef doc-id="76804E8E-4D18-43B2-9711-FC355001B89A" version-id="DF8E5F1C-F24F-46A6-9CAF-BFE8710E42DC" branch-id="00000000-0000-0000-0000-000000000000" revision-num="290482796" is-modified="true" region-id="0" href="D:\4SEMESTR\КГиГ+\Lab_4.1\5.5_СЕЧЕНИЕ.xmcd" xmlns="http://schemas.mathsoft.com/provenance10">
 						<hash/>
 					</parentRef>
 					<comment xmlns="http://schemas.mathsoft.com/provenance10"/>
@@ -3909,17 +3909,17 @@ fh2HRjdeY7/qAUo4C8/luob1RSS2yDezz3HF6KSxjRtOMQXz76VHp/oLzarMVK7J1zn3Z0cm
 3wjodWu5N8W/p8Ii6TyTPUANtiJcXLEKthxDXKnYtpezm5gMji4aa/y4s55W8OsX6CFefxpf
 C7dlTEWyyNI5v0MPTIVoLY8Av/wGwEh2tcW+s5NgvCMAAH4amAoAQBSYCgBAEKX+A9xshCji
 3gnuAAAAAElFTkSuQmCC</item>
-		<item item-id="90" content-encoding="gzip">H4sIAAAAAAAA/4xTy27TUBCdazt+5eESSNrGIS4NBNggZLGArkqpUCVeUli0XVWuY1pXhATX
-RWEX8Q9ds+EDWLFHfFiYhx0KK641nteZuWeur2sAoFDeorhs6/i2k4/D5CSdfKgArUcozmgS
-S8zg2BOCjeM3x2dJnHMEhlyv4ds8P53uTGYSfoliYWC4BL5CeYzyvQGwhrtfen98WnfORGug
-6cyuudz8aZ5n6fFFnihGbKF4cHUZW5t/+RVuYORZkvgcCFHqUzbNcP0nwLxihV9Rb5u2aMsR
-bbuinWp4+QK1C7VQw92+VbGt8Rke4Gj71I3Tcxcakq6X6T1Og8dt5s5KSFx3iO81Nr8I9Wbo
-/sK8fZ3LR00cXB0C3JBu6OraITwjZEs6WW0h1loV3V5j6KdVqlQPAdbZ/7H0oSOFbV8odDDU
-FQodpnBTnBY7PQGbgXTvbYgObgm/DRpvVo63KSyXQTmSvrQIbst+ffqoskWftxjIyL270nJA
-RA8A7kmzAY18ICPf5wvljcKjkyyanh69m2TjKLe4C9F1OLwb5ZF87w6UdweXXtxuArbZJs+N
-Zun5c+4jd7lLt1QVWFkLfEB1/z9aNrfyLIqTcFfnlF8AA7UCylcLshQaWBQoTfk6lgZKV76x
-oIhBqQUaFeVr821MmYShKosxaNhluYMYLncRw+VVxHB5DTFcXicMVTUYg4ZHGAILXe/1xTjJ
-0jh6LwdiM+09lBGk+OjFD+YWp/nPql11fgMAAP//AwDAKwo1TAQAAA==</item>
+		<item item-id="90" content-encoding="gzip">H4sIAAAAAAAA/4xTyW7TUBS9z3Y8ZXAaSNrGIS5NCbBByGIBXZVSoUpMUli0XVWuY1pXhATX
+RWEX8Q9ds+EDWLFHfFi4gxMKK150fadz7jvPfqkAgEJ7i+ZyrOPTTj4OktN0/KEEtB6hOcNx
+LDWDa08INorfnJwncc4VGDBfw6d5cTbZHU+l/BLNwsJgCXyF9hjtew1gDXe/8v7ktO6cA9Sx
+roGms7rGcvOneZ6lJ5d5ohi5jebB9WVsb/6Vl3iAkWdJ4nMhRKtOODTD9Z8As5IVfkW/Y9ri
+LUe87Yp3yuHVC/QuVEINd/tWxrHGZ3iARzugadyeuVCTdnXR3uc2eDxm5tRD0rpLelc4/CLS
+G6H7C/v2DaYPG3hwdQRwU6ZhqmtH8IyQTZlktURYc1V8a42hn1aJqR4CrHP+Y5lDW4gtXyS0
+sdQRCW2WcEuSJiddAZuBTO9uiA9ui74NOt50cbxNUbksyivpyYhgS/br0UeVLXq8RV+O3L0r
+I/sk9BDgngzr05EP5cj3+UJ5w/D4NIsmZ8fvxtkoyi2eQnIdLu9FeSTfu118d2LxXVYFsMUx
+ZW40TS+e8xy5yx26parAyprjD1Tn/6uL4VaeRXES7unc8gtgoOqgfDWnSGGApEBpyteRGihd
++cacKga15hiUlK/NdrBlEoZYFmMwsBd0BzFMdxHD9DJimF5BDNOrhCFWjTEYeIQhsMj1Xl+O
+kiyNo/fyQmyWvY82hBR/evEHc4u3+c+qXE9+AwAA//8DAGTJkPpMBAAA</item>
 		<item item-id="91">iVBORw0KGgoAAAANSUhEUgAAAOAAAADlCAYAAABK4PtSAAAAAXNSR0IArs4c6QAAAARnQU1B
 AACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAABFbSURBVHhe7Z0BlqowDEVnXS6I9bga
 N+NimAaJFKTQQtom7bvn8P/YkSZ5zRNQR/9GAEA1YEAAKgIDAlARGBCAisCAAFQEBgSgIjAg

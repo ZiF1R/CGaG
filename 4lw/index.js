@@ -1,16 +1,6 @@
 import { CMatrix } from "./node_modules/cmatrix-cvector/CMatrix.js";
 
-function CreateTranslate2D(dx, dy) {
-  let TM = new CMatrix(3, 3);
-  TM.Matrix = [
-    [1, 0, dx],
-    [0, 1, dy],
-    [0, 0, 1]
-  ];
-
-  return TM;
-}
-
+// функция для рассчета новых координат при вращении на заданный угол
 function CreateRotate2D(angle) {
   let fg = angle % 360.0;
   let angleInRadians = (fg / 180.0) * Math.PI;
@@ -25,29 +15,10 @@ function CreateRotate2D(angle) {
   return RM;
 }
 
-function SpaceToWindow(areaInWorldCoordinates, areaInWindowCoordinates) {
-  let [x_min, y_min] = areaInWorldCoordinates[0];
-  let [x_max, y_max] = areaInWorldCoordinates[1];
-
-  let dXw = areaInWindowCoordinates[1][0] - areaInWindowCoordinates[0][0],
-    dYw = areaInWindowCoordinates[1][1] - areaInWindowCoordinates[0][1],
-    dX = x_max - x_min,
-    dY = y_max - y_min;
-
-  let Kx = dXw / dX,
-    Ky = dYw / dY;
-
-  let Tsw = new CMatrix(3, 3);
-  Tsw.Matrix = [
-    [Kx, 0, areaInWindowCoordinates[0][0] - Kx * x_min],
-    [0, -Ky, areaInWindowCoordinates[1][1] + Ky * y_min],
-    [0, 0, 1],
-  ];
-
-  return Tsw;
-}
-
 class CSunSystem {
+  // определяем в конструкторе обьекты солнечной системы и их параметры
+  // а также запускаем интервал чтобы обьекты системы сами вращались
+  // (перерисовывались с новыми координатами через определенный промежуток времени)
   constructor() {
     this.Sun = {
       element: document.getElementById("sun"),
@@ -56,13 +27,13 @@ class CSunSystem {
       radius: 40,
     };
     this.Earth = {
-      type: "planet",
-      element: document.getElementById("earth"),
-      radius: 20,
-      orbitRadius: 7 * this.Sun.radius,
-      speed: 1,
-      angle: 0,
-      coordinates: new CMatrix(3, 1),
+      type: "planet", // тип обьекта солнечной системы, помимо этого типа есть спутники планет
+      element: document.getElementById("earth"), // елемент из html, представляющий данный объект, которому заранее задан только цвет в css
+      radius: 20, // радиус планеты
+      orbitRadius: 7 * this.Sun.radius, // радиус орбиты
+      speed: 1, // угловая скорость
+      angle: 0, // начальное положение на орбите
+      coordinates: new CMatrix(3, 1), // матрица координат
     };
     this.Mars = {
       type: "planet",
@@ -75,7 +46,7 @@ class CSunSystem {
     };
     this.Moon = {
       type: "satellite",
-      targetPlanet: this.Earth,
+      targetPlanet: this.Earth, // планета для которой данный обьект является спутником
       element: document.getElementById("moon"),
       radius: 15,
       orbitRadius: 3 * this.Earth.radius,
@@ -85,7 +56,7 @@ class CSunSystem {
     };
     this.New = {
       type: "satellite",
-      targetPlanet: this.Mars,
+      targetPlanet: this.Mars, // планета для которой данный обьект является спутником
       element: document.getElementById("new"),
       radius: 15,
       orbitRadius: 3 * this.Mars.radius,
@@ -95,7 +66,7 @@ class CSunSystem {
     };
     this.St = {
       type: "satellite",
-      targetPlanet: this.Mars,
+      targetPlanet: this.Mars, // планета для которой данный обьект является спутником
       element: document.getElementById("st"),
       radius: 10,
       orbitRadius: 1.5 * this.Mars.radius,
@@ -104,6 +75,7 @@ class CSunSystem {
       coordinates: new CMatrix(3, 1),
     };
 
+    // время через которое будет производится перерисовка
     this.discretizationInterval = 0.3; //ms
     this.planets = [this.Earth, this.Moon, this.New, this.Mars, this.St];
 
@@ -115,11 +87,13 @@ class CSunSystem {
 
     this.DrawOrbits();
 
+    // запускаем интервал с которым будет происходит перерисовка
     let interval = setInterval(() => {
       this.SetNewCoordinates().Draw();
     }, this.discretizationInterval * 100);
   }
 
+  // задает новые координаты
   SetNewCoordinates() {
     const getRadians = (angle) => (angle / 180.0) * Math.PI;
 
@@ -138,6 +112,7 @@ class CSunSystem {
     return this;
   }
 
+  // рисует орбиты планет
   DrawOrbits() {
     for (let planet of this.planets) {
       let orbit = document.createElement("div");
@@ -153,6 +128,7 @@ class CSunSystem {
     }
   }
 
+  // рисует планеты
   Draw() {
     for (let planet of this.planets) {
       planet.element.style.width = planet.radius + 'px';
@@ -168,6 +144,7 @@ class CSunSystem {
         satelliteOrbit.style.left = satelliteOrbitCoordinates[0] + 'px';
         satelliteOrbit.style.top = satelliteOrbitCoordinates[1] + 'px';
 
+        // сложные расчеты чтобы правильно спозиционировать элемент относительно орбиты т.к елемент строится с верхнего левого угла
         planet.element.style.left = satelliteOrbitCoordinates[0] + planet.orbitRadius + planet.coordinates.Matrix[0][0] - planet.radius / 2 + 'px';
         planet.element.style.top = satelliteOrbitCoordinates[1] + planet.orbitRadius + planet.coordinates.Matrix[1][0] - planet.radius / 2 + 'px';
       } else {

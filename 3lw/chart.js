@@ -3,6 +3,7 @@ import { CMatrix } from "./types/CMatrix.js";
 const canvas = document.getElementById("chart");
 const ctx = canvas.getContext("2d");
 
+// задаем область в оконных координатах
 const areaInWindowCoordinates = [
   [50, 50],
   [500, 500]
@@ -12,7 +13,9 @@ ctx.font = '16px Raleway';
 ctx.textAlign = 'right';
 ctx.textBaseline = 'middle';
 
+// определяем обработчики для кнопок с графиками
 document.querySelector(".f1").addEventListener("click", () => {
+  // задаем кисть для рисования и вызываем функцию для отображения графика
   let pen = new CMyPen(2, "yellowgreen");
   drawGraph(
     (x) => Math.sin(x) / x,
@@ -21,8 +24,8 @@ document.querySelector(".f1").addEventListener("click", () => {
     pen
   );
 });
-
 document.querySelector(".f2").addEventListener("click", () => {
+  // задаем кисть для рисования и вызываем функцию для отображения графика
   let pen = new CMyPen(5, "tomato");
   drawGraph(
     (x) => Math.pow(x, 3),
@@ -31,8 +34,8 @@ document.querySelector(".f2").addEventListener("click", () => {
     pen
   );
 });
-
 document.querySelector(".f3").addEventListener("click", () => {
+  // задаем кисть для рисования и вызываем функцию для отображения графика
   let pen = new CMyPen(7, "coral");
   drawGraph(
     (x) => Math.sqrt(x) * Math.sin(x),
@@ -41,8 +44,8 @@ document.querySelector(".f3").addEventListener("click", () => {
     pen
   );
 });
-
 document.querySelector(".f4").addEventListener("click", () => {
+  // задаем кисть для рисования и вызываем функцию для отображения графика
   let pen = new CMyPen(4, "pink");
   drawGraph(
     (x) => Math.pow(x, 2),
@@ -52,6 +55,12 @@ document.querySelector(".f4").addEventListener("click", () => {
   );
 });
 
+/**
+ *
+ * @param {Array<Array<Number>>} areaInWorldCoordinates - область в мировых координатах
+ * @param {Array<Array<Number>>} areaInWindowCoordinates - область в оконных координатах
+ * @returns матрицу пересчета из мировых координат в оконные
+ */
 function SpaceToWindow(areaInWorldCoordinates, areaInWindowCoordinates) {
   let [x_min, y_min] = areaInWorldCoordinates[0];
   let [x_max, y_max] = areaInWorldCoordinates[1];
@@ -82,10 +91,10 @@ class CMyPen {
 }
 
 /**
- * @param {Function} func
- * @param {Array<Number>} range
- * @param {Number} dx
- * @param {CMyPen} pen
+ * @param {Function} func - функция которой описывается график
+ * @param {Array<Number>} range - промежуток по оси Х, на котором будет строится график
+ * @param {Number} dx - расстояние между соседними точками по оси Х
+ * @param {CMyPen} pen - кисть для рисования графика
  */
 function drawGraph(func, range, dx, pen) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);

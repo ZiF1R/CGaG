@@ -107,8 +107,8 @@ function operationsForMatrix(matrix, otherMatrix, operation) {
   let result = new CMatrix(matrix.Rows, otherMatrix.Columns);
   if (matrix.Columns !== otherMatrix.Rows)
       throw TypeError("Columns count of CMatrix parameter must be equal to rows count of matrix!");
-  for (let row = 0; row < matrix.Rows; row++)
-      for (let column = 0; column < otherMatrix.Columns; column++) {
+  for (let row = 0; row < matrix.Columns; row++)
+      for (let column = 0; column < otherMatrix.Rows; column++) {
           switch (operation) {
               case "+":
                   result.Matrix[row][column] = matrix.Matrix[row][column] + otherMatrix.Matrix[row][column];

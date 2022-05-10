@@ -3,7 +3,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 // Additional canvas,
-// will conatain selected part of main canvas image
+// will contain selected part of main canvas image
 const partialCanvas = document.createElement("canvas");
 partialCanvas.id = "partialCanvas";
 const partialCtx = partialCanvas.getContext("2d");

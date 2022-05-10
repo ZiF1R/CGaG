@@ -5,10 +5,11 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 /**
- * @param {CVector} X 
- * @param {CVector} Y 
- * @param {number} x 
- * @param {number} size 
+ * @param {CVector} X - множество координат по оси Х
+ * @param {CVector} Y  - множество координат по оси У, соответствующих координатам х
+ * @param {number} x - точка для которой будет вычисляться значение интерполяционного полинома Лагранжа
+ * @param {number} size - количество точек кривой
+ * вычисляет значение интерполяционного полинома Лагранжа в точке х
  */
 function Lagrange(X, Y, x, size) {
   let lagrange_pol = 0,
@@ -31,9 +32,9 @@ class CPlot2D {
   constructor() {
     this.X = new CVector(5);
     this.Y = new CVector(5);
-    this.K = new CMatrix(3, 3);
-    this.WinArea = [[100, 100], [500, 500]];
-    this.WorldArea = [[0, 0], [5, 5]];
+    this.K = new CMatrix(3, 3); // матрица пересчета координат
+    this.WinArea = [[100, 100], [500, 500]]; // область в оконных СК
+    this.WorldArea = [[0, 0], [5, 5]]; // область в мировых СК
 
     this.OnLagrange();
     this.Draw();
@@ -41,9 +42,9 @@ class CPlot2D {
   }
 
   /**
-   * @param {CVector} XX 
-   * @param {CVector} YY 
-   * @param {Array<Array<number>>} winArea 
+   * @param {CVector} XX - вектор данных по X
+   * @param {CVector} YY  - вектор данных по У
+   * @param {Array<Array<number>>} winArea - область в окне
    */
   SetParams(XX, YY, winArea) {
     this.X.changeSize(XX.Rows, this.X.Columns);
@@ -57,9 +58,9 @@ class CPlot2D {
       y_min = this.Y.Min(),
       y_max = this.Y.Max();
 
-    this.WorldArea = [[x_min, y_max], [x_max, y_min]];
+    this.WorldArea = [[x_min, y_max], [x_max, y_min]]; // Область в мировой СК
     this.WinArea = winArea;
-    this.K = SpaceToWindow(this.WorldArea, this.WinArea);
+    this.K = SpaceToWindow(this.WorldArea, this.WinArea);  // матрица пересчета координат
   }
 
   /**
@@ -79,14 +80,17 @@ class CPlot2D {
     return [W.Matrix[0][0], W.Matrix[1][0]];
   }
 
+  // Рисование с самостоятельным пересчетом координат
   Draw() {
     let xInWorld = this.X.Matrix[0][0],
       yInWorld = this.Y.Matrix[0][0];
 
     ctx.beginPath();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let [xInWindow, yInWindow] = this.GetWindowCoordinates(xInWorld, yInWorld);
+    let [xInWindow, yInWindow] = this.GetWindowCoordinates(xInWorld, yInWorld); // координаты начальной точки графика в оконой СК
     ctx.moveTo(xInWindow, yInWindow);
+
+    // рисуем по точкам
     for (let i = 1; i < this.X.Rows; i++) {
       xInWorld = this.X.Matrix[i][0];
       yInWorld = this.Y.Matrix[i][0];
@@ -106,6 +110,7 @@ class CPlot2D {
     this.X.changeSize(pointsCount, this.X.Columns);
     this.Y.changeSize(pointsCount, this.Y.Columns);
 
+    // рисуем по точкам
     if (last) {
       this.X.Matrix[0][0] = 2*dt;
       this.Y.Matrix[0][0] = 0;
@@ -136,6 +141,7 @@ class CPlot2D {
     this.X.changeSize(N + 1, 1);
     this.Y.changeSize(N + 1, 1);
 
+    // рисуем по точкам
     for (let i = 0; i <= N; i++) {
       this.X.Matrix[i][0] = xL + i * dx;
       this.Y.Matrix[i][0] = Math.pow(
@@ -156,8 +162,10 @@ class CPlot2D {
       RY = new CVector(N);
 
     ctx.beginPath();
-    let [xInWindow, yInWindow] = this.GetWindowCoordinates(xInWorld, yInWorld);
+    let [xInWindow, yInWindow] = this.GetWindowCoordinates(xInWorld, yInWorld); // координаты начальной точки графика в оконой СК
     ctx.moveTo(xInWindow, yInWindow);
+
+    // рисуем по точкам
     for (let k = 1; k <= NT; k++)
     {
       let t = k * dt;
@@ -201,6 +209,7 @@ class CPlot2D {
       XL = new CVector(NL + 1),
       YL = new CVector(NL + 1);
 
+    // рассчитываем координаты для кождой точки
     for (let i = 0; i < NL + 1; i++) {
       XL.Matrix[i][0] = i * dx;
       YL.Matrix[i][0] = Lagrange(this.X, this.Y, XL.Matrix[i][0], N + 1);
@@ -210,8 +219,10 @@ class CPlot2D {
       yInWorld = YL.Matrix[0][0];
 
     ctx.beginPath();
-    let [xInWindow, yInWindow] = this.GetWindowCoordinates(xInWorld, yInWorld);
+    let [xInWindow, yInWindow] = this.GetWindowCoordinates(xInWorld, yInWorld); // координаты начальной точки графика в оконой СК
     ctx.moveTo(xInWindow, yInWindow);
+
+    // рисуем по точкам
     for (let i = 1; i < XL.Rows; i++) {
       xInWorld = XL.Matrix[i][0];
       yInWorld = YL.Matrix[i][0];
@@ -233,6 +244,7 @@ const plot = new CPlot2D();
 /**
  * @param {Array<Array<number>>} areaInWorldCoordinates two dimentional array, contains coordinates of top left and bottom right corners
  * @param {Array<Array<number>>} areaInWindowCoordinates two dimentional array, contains coordinates of top left and bottom right corners
+ * преобразует координаты из мировой системы координат в оконные
  */
 function SpaceToWindow(areaInWorldCoordinates, areaInWindowCoordinates) {
   let [x_min, y_max] = areaInWorldCoordinates[0];
@@ -272,7 +284,9 @@ let beziers = [bezier1, bezier2, bezier3, bezier4, bezier5],
     [Math.PI / 4, 4, true]
   ];
 
+// задаем различные графики которые будут строится
 beziers.forEach((bezier, i) => {
+  // обработчик для рисования кривой безье
   bezier.addEventListener("click", () => {
     plot.OnBezier(...beziersData[i]);
     plot.Draw();
@@ -280,6 +294,7 @@ beziers.forEach((bezier, i) => {
   });
 });
 
+// обработчик для рисования кривой лагранжа
 lagrange.addEventListener("click", () => {
   plot.OnLagrange();
   plot.Draw();

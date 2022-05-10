@@ -1,6 +1,7 @@
 import { CMatrix } from "./types/CMatrix";
 import { CVector } from "./types/CVector";
 
+ // задаем матрицы и векторы для дальнейшего проведения тестов
 export let A = new CMatrix(3, 3);
 export let B = new CMatrix(A);
 export let V1 = new CVector(3);

@@ -5,6 +5,7 @@ import { CosBetweenVectors, ModOfVector, ScalarMult, VectorMult } from "./node_m
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+// представляет точку в 2д пространстве
 class CPoint {
   constructor(x, y) {
     this.x = x;
@@ -35,18 +36,28 @@ class CPyramid {
       blue: 150,
     };
 
-    this.WinArea = [[150, 50], [600, 500]];
+    this.WinArea = [[150, 50], [600, 500]]; // область рисования в оконных координатах
     this.SetDrawMode(this.DrawWithoutInvisibleLines);
-    // this.ColorDraw(new CVector(3));
+
+     // координаты точки наблюдения
     this.PView = new CVector(3);
     this.PView.Matrix = [
       [100],
-      [0],
-      [60]
+      [10],
+      [150]
     ];
-    this.DrawLightSphere(1, this.PView, new CVector(3), this.WinArea, this.Color);
+
+    // координаты точки освещения
+    this.Light = new CVector(3);
+    this.Light.Matrix = [
+      [10],
+      [30],
+      [170]
+    ];
+    this.DrawLightSphere(1, this.PView,  new CVector(3), this.WinArea, this.Color);
   }
 
+  // задает новые размеры области при масштабировании пирамиды
   SetWinArea(dx, dy) {
     this.WinArea = [[150, 50], [600, 500]];
     this.WinArea[0][0] += dx;
@@ -56,6 +67,7 @@ class CPyramid {
     this.WinArea[1][1] -= dy;
   }
 
+  // рассчитывает координаты для всех вершин пирамиды
   CalculatePointsCoordinates(viewPoint) {
     let VM = CreateViewCoord(
       viewPoint.Matrix[0][0],
@@ -92,7 +104,8 @@ class CPyramid {
   }
 
   /**
-   * @param {CVector} viewPoint contains (x, y, z) coordinates in decart coordinate system
+   * @param {CMatrix} viewPoint contains (x, y, z) coordinates in decart coordinate system
+   * рисует пирамиду с невидимыми линиями
    */
   DrawWithInvisibleLines(viewPoint) {
     ctx.beginPath();
@@ -123,7 +136,8 @@ class CPyramid {
   }
 
   /**
-   * @param {CVector} viewPoint contains (x, y, z) coordinates in decart coordinate system
+   * @param {CMatrix} viewPoint contains (x, y, z) coordinates in decart coordinate system
+   * рисует пирамиду без невидимых линий
    */
   DrawWithoutInvisibleLines(viewPoint) {
     let ViewDecart = SphereToDecart(viewPoint);
@@ -191,7 +205,8 @@ class CPyramid {
   /**
    * 
    * @param {CMatrix} viewPoint contains (x, y, z) coordinates in decart coordinate system
-   * @param {Object} Color
+   * @param {Object} Color - исходный цвет граней (без учета наклона и точки наблюдения)
+   * рисует пирамиду с учетом освещения и точки наблюдения
    */
   ColorDraw(viewPoint, Color = this.Color) {
     ctx.beginPath();
@@ -202,6 +217,8 @@ class CPyramid {
       blue = Color.blue;
     
     let ViewDecart = SphereToDecart(viewPoint);
+
+    // матрица пересчета из мировой системы координат в видовую систему координат
     let MV = CreateViewCoord(
       viewPoint.Matrix[0][0],
       viewPoint.Matrix[1][0],
@@ -214,11 +231,13 @@ class CPyramid {
       x_max = Math.max(...ViewVertexes.Matrix[0]),
       x_min = Math.min(...ViewVertexes.Matrix[0]);
 
+    // матрица пересчета из видовой СК в оконную СК
     let MW = SpaceToWindow(
       [[x_min, y_min], [x_max, y_max]],
       this.WinArea
     );
 
+    // пересчитываем координаты в оконной СК
     let points = [];
     for (let i = 0; i < 6; i++) {
       let V = new CVector(3);
@@ -235,8 +254,11 @@ class CPyramid {
       R2 = new CVector(3),
       VN = new CVector(3);
 
+    // коэффициент преломления
     let refractiveCoefficient = 0;
     for (let i = 0; i < 3; i++) {
+
+      // координаты точки верхнего основания
       let VE = new CVector(3);
       VE.Matrix = [
         [this.Vertexes.Matrix[0][i + 3]],
@@ -245,26 +267,32 @@ class CPyramid {
       ];
       let k = i === 2 ? 0 : i + 1;
 
+      // текущая точка основания
       R1.Matrix = [
         [this.Vertexes.Matrix[0][i]],
         [this.Vertexes.Matrix[1][i]],
         [this.Vertexes.Matrix[2][i]],
       ];
+      // следующая точка основания
       R2.Matrix = [
         [this.Vertexes.Matrix[0][k]],
         [this.Vertexes.Matrix[1][k]],
         [this.Vertexes.Matrix[2][k]],
       ];
       
-      let V1 = R2.Subtract(R1);
-      let V2 = VE.Subtract(R1);
+      let V1 = R2.Subtract(R1); // вектор основания
+      let V2 = VE.Subtract(R1); // вектор между основанием и вершиной
 
-      VN = VectorMult(V2, V1);
-      refractiveCoefficient = CosBetweenVectors(VN, ViewDecart);
+      VN = VectorMult(V2, V1); // векторное произведение - вектор внешней нормали к грани
+      refractiveCoefficient = CosBetweenVectors(VN, ViewDecart); // косинус между вектором нормали к грани и вектором точки наблюдения
       ctx.beginPath();
+
+      // задаем цвет с учетом коэффициента преломления
       let r = Math.pow(refractiveCoefficient, 2) * red,
         g = Math.pow(refractiveCoefficient, 2) * green,
         b = Math.pow(refractiveCoefficient, 2) * blue;
+
+      // рисуем видимую грань
       if (refractiveCoefficient >= 0) {
         ctx.beginPath();
         ctx.moveTo(points[i].x, points[i].y);
@@ -282,7 +310,9 @@ class CPyramid {
 
     VN = VectorMult(R1, R2);
     refractiveCoefficient = CosBetweenVectors(VN, ViewDecart);
+
     if (refractiveCoefficient >= 0) {
+      // нижнее основание
       ctx.beginPath();
       let r = refractiveCoefficient * 0.3,
         g = refractiveCoefficient * 0.3,
@@ -297,6 +327,7 @@ class CPyramid {
       ctx.closePath();
     }
     else {
+      // верхнее основание
       ctx.beginPath();
       let r = refractiveCoefficient * 0.7,
         g = refractiveCoefficient * 0.7,
@@ -319,13 +350,23 @@ class CPyramid {
     ctx.closePath();
   }
 
+  // устанавливает режим рисования пирамиды (с невидимыми линиями или без них)
+  SetDrawMode(fn) {
+    if (
+      fn !== this.DrawWithInvisibleLines &&
+      fn !== this.DrawWithoutInvisibleLines
+    ) throw new Error();
+
+    this.CurrentDrawModeFunction = (...args) => fn.call(this, ...args);
+  }
+
   /**
-   * @param {number} radius 
-   * @param {CVector} viewPoint 
-   * @param {CVector} lightPoint 
-   * @param {Array<Array<number>>} winArea 
-   * @param {Object} Color 
-   * @param {boolean} isDiffusedMode 
+   * @param {number} radius - радиус сферы
+   * @param {CVector} viewPoint - координаты точки наблюдения
+   * @param {CVector} lightPoint - координаты точки освещения
+   * @param {Array<Array<number>>} winArea - область в оконной СК
+   * @param {Object} Color - исходный цвет освещения
+   * @param {boolean} isDiffusedMode
    */
   DrawLightSphere(radius, viewPoint, lightPoint, winArea = this.WinArea, Color = this.Color) {
     ctx.beginPath();
@@ -335,13 +376,16 @@ class CPyramid {
       green = Color.green,
       blue = Color.blue;
 
+    // Шаг по азимуту
     let df = 0.9,
       dq = 0.6,
       kLight;
 
-    let VR = SphereToDecart(viewPoint),
-      VS = SphereToDecart(lightPoint),
-      MW = SpaceToWindow([[-radius, radius], [radius, -radius]], winArea),
+    let VR = SphereToDecart(viewPoint), // Декартовы координаты точки наблюдения
+      VS = SphereToDecart(lightPoint), // Декартовы координаты источника света
+      MW = SpaceToWindow([[-radius, -radius], [radius, radius]], winArea), // Матрица пересчета в оконную СК
+
+      // Матрица пересчета в видовую СК
       MV = CreateViewCoord(
         viewPoint.Matrix[0][0],
         viewPoint.Matrix[1][0],
@@ -351,12 +395,15 @@ class CPyramid {
     for (let azimuth = 0; azimuth <= 360.0; azimuth += df) {
       for (let angle = 0; angle <= 180.0; angle += dq) {
         let VSphere = new CVector(3);
+
+        // Декартовы координаты точки сферы
         VSphere.Matrix = [
           [radius],
           [azimuth],
           [angle]
         ];
 
+        // вектор нормали к поверхности сферы
         let VSphereNorm = new CVector(3);
         let VDecart = SphereToDecart(VSphere);
         VSphereNorm.Matrix = VDecart.Matrix;
@@ -371,19 +418,22 @@ class CPyramid {
           [1]
         ];
 
-        PV = MV.Multiply(PV);
+        PV = MV.Multiply(PV); // Координаты точки в видовой СК
 
         VDecart.Matrix = [
           [PV.Matrix[0][0]],
           [PV.Matrix[1][0]],
           [1]
         ];
-        VDecart = MW.Multiply(VDecart);
-        let VP = VS.Subtract(VR);
-        let cos_PN = CosBetweenVectors(VP, VSphereNorm);
 
+        VDecart = MW.Multiply(VDecart); // координаты точки в оконной СК
+        let VP = VS.Subtract(VR); // Направление на источник света относительно нормали к точке падения
+        let cos_PN = CosBetweenVectors(VP, VSphereNorm); // угол падения луча
+
+        // если на точку сферы падает свет
         if (cos_PN > 0) {
           kLight = cos_PN * cos_RN;
+
           ctx.beginPath();
           ctx.arc(
             VDecart.Matrix[0][0],
@@ -404,20 +454,12 @@ class CPyramid {
 
     ctx.closePath();
   }
-
-  SetDrawMode(fn) {
-    if (
-      fn !== this.DrawWithInvisibleLines &&
-      fn !== this.DrawWithoutInvisibleLines
-    ) throw new Error();
-
-    this.CurrentDrawModeFunction = (...args) => fn.call(this, ...args);
-  }
 }
 
 /**
  * @param {Array<Array<number>>} areaInWorldCoordinates two dimentional array, contains coordinates of top left and bottom right corners
  * @param {Array<Array<number>>} areaInWindowCoordinates two dimentional array, contains coordinates of top left and bottom right corners
+ * преобразует координаты из мировой системы координат в оконные
  */
 function SpaceToWindow(areaInWorldCoordinates, areaInWindowCoordinates) {
   let [x_min, y_min] = areaInWorldCoordinates[0];

@@ -1,6 +1,8 @@
 import { CMatrix } from "./types/CMatrix";
 import { CVector } from "./types/CVector";
 
+// оппеделяем функцию которая будет выводить матрицу в консоль
+// (просто чтобы было, в js можно и без этого выводить многомерные массивы в консоль)
 export const PrintMatrix = (matrix: CMatrix): void => {
   let result = "[\n  ";
   for (let i = 0; i < matrix.Rows; i++) {
@@ -20,7 +22,9 @@ export const PrintMatrix = (matrix: CMatrix): void => {
   console.log(result);
 };
 
+// вычисляет векторное произведение векторов
 export const VectorMult = (v1: CVector, v2: CVector): CVector => {
+  // проверяем на равенство размерностей
   if (v1.Rows !== v2.Rows)
     throw new Error("The sizes of vectors must be equal!");
 
@@ -34,7 +38,9 @@ export const VectorMult = (v1: CVector, v2: CVector): CVector => {
   return result;
 };
 
+// вычисляет скалярное произведение векторов
 export const ScalarMult = (v1: CVector, v2: CVector): number => {
+  // проверяем на равенство размерностей
   if (v1.Rows !== v2.Rows)
     throw new Error("The sizes of vectors must be equal!");
 
@@ -46,6 +52,8 @@ export const ScalarMult = (v1: CVector, v2: CVector): number => {
   return result;
 };
 
+
+// вычисляет модуль вектора
 export const ModOfVector = (v: CVector): number => {
   let result: number = 0;
 
@@ -56,10 +64,12 @@ export const ModOfVector = (v: CVector): number => {
   return Math.sqrt(result);
 };
 
+// вычисляет косинус между векторами
 export const CosBetweenVectors = (v1: CVector, v2: CVector): number => {
   return ScalarMult(v1, v2) / (ModOfVector(v1) * ModOfVector(v2));
 };
 
+// преобразует сферические координаты в декартовы
 export const SphereToDecart = (point: CVector): CVector => {
   let result: CVector = new CVector(3);
   result.Matrix = [

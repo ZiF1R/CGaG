@@ -12,21 +12,33 @@ CMatrix.prototype.Multiply = function(parameter: CMatrix | number): CMatrix {
   return ApplyMatrixOperation(parameter)(this, "*");
 }
 
+// определяем тип который будет представлять операцию
 type Operation = "+" | "-" | "*" | "/";
 
 function ApplyMatrixOperation(arg: CMatrix | number): (matrix: CMatrix, operation: Operation) => CMatrix {
+  // проверяем тип аргумента
   if (typeof arg === 'number') {
     return (matrix: CMatrix, operation: Operation) => {
+      // если передано число то вызываем соответствующую функцию со всеми необходимыми аргументами
       return operationsForNumber(matrix, arg, operation);
     }
   }
   else {
     return (matrix: CMatrix, operation: Operation) => {
+      // если передана матрица то вызываем соответствующую функцию со всеми необходимыми аргументами
       return operationsForMatrix(matrix, arg, operation);
     }
   }
 }
 
+// функция для проведения операций с двумя матрицами
+/**
+ *
+ * @param matrix - исходная матрица над которой производится опрация
+ * @param otherMatrix - другая матрица с которой производится операция
+ * @param operation - тип операции (сложение, вычитание, умножение)
+ * @returns результат применения операции с двумя матрицами
+ */
 function operationsForMatrix(matrix: CMatrix, otherMatrix: CMatrix, operation: Operation): CMatrix {
   let result = new CMatrix(matrix.Rows, otherMatrix.Columns);
   if (matrix.Columns !== otherMatrix.Rows)
@@ -51,6 +63,14 @@ function operationsForMatrix(matrix: CMatrix, otherMatrix: CMatrix, operation: O
   return result;
 }
 
+// функция для проведения операций с матрицей и числом
+/**
+ *
+ * @param matrix - исходная матрица над которой производится опрация
+ * @param number - число с которым производится операция
+ * @param operation - тип операции (сложение, вычитание, умножение)
+ * @returns результат применения операции с матрицей и часлом
+ */
 function operationsForNumber(matrix: CMatrix, number: number, operation: Operation): CMatrix {
   let result = new CMatrix(matrix.Rows, matrix.Columns);
 
